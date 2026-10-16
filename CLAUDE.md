@@ -11,6 +11,9 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
 - Lokal committen ok. **Push / GitHub-Repo anlegen nur nach Rückfrage.**
 - Prod-HA (192.168.10.30) nur auf Daniels ausdrücklichen Wunsch; Updates laufen über Privat-Updates
   (`~/Software/privat-updates`), nie selbst nach Prod kopieren, kein Neustart ohne Rückfrage.
+- Versionen = Kalender-Schema `YY.M.N` (Jahr, Monat ohne Null, N = laufendes Release im Monat ab 1; ab 26.10.x,
+  kein X.Y.Z mehr): jede Änderung = neue Version in `manifest.json` + CHANGELOG, `tools/next-version` rechnet sie aus
+  (zählt nur echte, veröffentlichte GitHub-Releases des Monats, auch alte X.Y.Z, bloße Tags nicht; ohne Release im Monat → .1; jedes Release als GitHub-Release veröffentlichen). Tag/Release-Titel = genau diese Nummer ohne „v“.
 - Deutsche Suchbegriffe (`tools/keywords_de.json`) greifen nur über Namensteile/-anfänge, nicht über Apples
   englische Keywords (zu ungenau). HAs Picker macht aus Leerzeichen „-“ → Suchbegriffe mit „-“ speichern.
 - Kompatibilität: alle `ios:`-Namen aus `tests/data/` müssen auflösen (Prod-Entitäten, Dashboards
@@ -35,7 +38,7 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
   SMasks (Luminosity/Alpha = Aussparungen) mit skia-pathops auf → einfache SVG-Pfade (nonzero), 256 gzip-Stücke
   (`m/` Umrisse, `v/` Ebenen) nach FNV-1a-Hash des Namens, `index.json.gz` (Picker-Liste + Suchbegriffe),
   `meta.json` (Satz-Version, Anzahl, Hash). Deutsche Suchbegriffe: `tools/keywords_de.json` (handgeschrieben,
-  die App hat keine deutschen Keywords). Neuer Satz: App aktualisieren, Skript laufen lassen, Version erhöhen.
+  die App hat keine deutschen Keywords). Neuer Satz: App aktualisieren, Skript laufen lassen, Version erhöhen (nächste per `tools/next-version`).
 - `tools/preview.py` = PNG-Kontaktbogen zum Ansehen, `tools/logos.py` = Logo-Varianten/Vergleich/brand.
 - Server: `SFSymbolsModuleView` liefert `/sf_symbols/<version>/sf-symbols.js` öffentlich, `SFSymbolsDataView`
   `index.json`, `m/xx.json`, `v/xx.json` nur mit Login (`requires_auth`, sonst 401; gzip, `private … immutable`
