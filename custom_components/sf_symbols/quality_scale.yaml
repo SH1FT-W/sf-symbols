@@ -1,0 +1,135 @@
+# Integration Quality Scale, selbst geprüft (keine Core-Integration, die Stufe ist nicht offiziell).
+# Regeln: https://developers.home-assistant.io/docs/core/integration-quality-scale/rules
+# SF Symbols ist eine reine Frontend-Integration: keine Geräte, keine Entitäten, keine Verbindung nach außen.
+rules:
+  # Bronze
+  action-setup:
+    status: exempt
+    comment: Keine eigenen Aktionen.
+  appropriate-polling:
+    status: exempt
+    comment: Fragt nichts ab; liefert nur Dateien aus.
+  brands: done
+  common-modules:
+    status: done
+    comment: Datenzugriff ohne HA in symbols.py, HTTP-View und Einrichtung in __init__.py.
+  config-flow-test-coverage: done
+  config-flow:
+    status: done
+    comment: Nur Bestätigung, single_config_entry im Manifest.
+  dependency-transparency:
+    status: exempt
+    comment: Keine externen Abhängigkeiten.
+  docs-actions:
+    status: exempt
+    comment: Keine eigenen Aktionen.
+  docs-high-level-description: done
+  docs-installation-instructions: done
+  docs-removal-instructions: done
+  entity-event-setup:
+    status: exempt
+    comment: Keine Entitäten.
+  entity-unique-id:
+    status: exempt
+    comment: Keine Entitäten.
+  has-entity-name:
+    status: exempt
+    comment: Keine Entitäten.
+  runtime-data: done
+  test-before-configure:
+    status: exempt
+    comment: Es gibt nichts zu verbinden; fehlende Symboldaten meldet die Einrichtung als übersetzten Fehler.
+  test-before-setup:
+    status: done
+    comment: Symboldaten werden vor dem Anmelden des Moduls geprüft (ConfigEntryError „data_missing“).
+  unique-config-entry:
+    status: done
+    comment: single_config_entry im Manifest.
+
+  # Silver
+  action-exceptions:
+    status: exempt
+    comment: Keine eigenen Aktionen.
+  config-entry-unloading:
+    status: done
+    comment: Entladen meldet das Modul ab, die Daten-URLs antworten danach mit 404.
+  docs-configuration-parameters:
+    status: exempt
+    comment: Keine Optionen.
+  docs-installation-parameters:
+    status: exempt
+    comment: Keine Eingaben bei der Einrichtung.
+  entity-unavailable:
+    status: exempt
+    comment: Keine Entitäten.
+  integration-owner: done
+  log-when-unavailable:
+    status: exempt
+    comment: Kein Gerät oder Dienst, der ausfallen könnte.
+  parallel-updates:
+    status: exempt
+    comment: Keine Entitäten-Plattformen.
+  reauthentication-flow:
+    status: exempt
+    comment: Keine Anmeldung.
+  test-coverage:
+    status: done
+    comment: 100 % Python; Frontend-Modul mit node --test gegen die echten Daten.
+
+  # Gold
+  devices:
+    status: exempt
+    comment: Kein Gerät.
+  diagnostics: done
+  discovery-update-info:
+    status: exempt
+    comment: Nichts zu entdecken.
+  discovery:
+    status: exempt
+    comment: Nichts zu entdecken.
+  docs-data-update: done
+  docs-examples: done
+  docs-known-limitations: done
+  docs-supported-devices:
+    status: exempt
+    comment: Keine Geräte.
+  docs-supported-functions: done
+  docs-troubleshooting: done
+  docs-use-cases: done
+  dynamic-devices:
+    status: exempt
+    comment: Keine Geräte.
+  entity-category:
+    status: exempt
+    comment: Keine Entitäten.
+  entity-device-class:
+    status: exempt
+    comment: Keine Entitäten.
+  entity-disabled-by-default:
+    status: exempt
+    comment: Keine Entitäten.
+  entity-translations:
+    status: exempt
+    comment: Keine Entitäten.
+  exception-translations: done
+  icon-translations:
+    status: exempt
+    comment: Keine Entitäten oder Aktionen mit Symbolen.
+  reconfiguration-flow:
+    status: exempt
+    comment: Nichts einzustellen.
+  repair-issues:
+    status: done
+    comment: Hinweis, solange Cupertino Icons ebenfalls installiert ist (beide melden „ios:“ an).
+  stale-devices:
+    status: exempt
+    comment: Keine Geräte.
+
+  # Platinum
+  async-dependency:
+    status: exempt
+    comment: Keine Bibliothek; Dateien werden im Executor gelesen.
+  inject-websession:
+    status: exempt
+    comment: Keine HTTP-Anfragen nach außen.
+  strict-typing: done

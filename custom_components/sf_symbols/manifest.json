@@ -1,0 +1,14 @@
+{
+  "domain": "sf_symbols",
+  "name": "SF Symbols",
+  "codeowners": ["@SH1FT-W"],
+  "config_flow": true,
+  "dependencies": ["frontend", "http"],
+  "documentation": "https://github.com/SH1FT-W/sf-symbols",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/SH1FT-W/sf-symbols/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "1.0.0"
+}

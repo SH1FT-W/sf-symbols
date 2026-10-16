@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "SF Symbols",
+        "description": "Adds Apple's SF Symbols as icon sets `sf:` (Apple names, e.g. `sf:lamp.floor`) and `ios:` (compatible with Cupertino Icons, e.g. `ios:lamp-floor`). There is nothing to configure."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "[%key:common::config_flow::abort::single_instance_allowed%]"
+    }
+  },
+  "exceptions": {
+    "data_missing": {
+      "message": "The symbol data is missing or damaged ({error}). Reinstall the integration."
+    }
+  },
+  "issues": {
+    "cupertino_installed": {
+      "title": "Cupertino Icons is still installed",
+      "description": "Cupertino Icons and SF Symbols both provide the icon set `ios:`. SF Symbols takes over `ios:` and resolves every Cupertino name, so Cupertino Icons is no longer needed.\n\nRemove the Cupertino Icons integration (and, if installed through HACS, the repository) and restart Home Assistant. This message disappears afterwards."
+    }
+  }
+}

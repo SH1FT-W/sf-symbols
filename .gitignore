@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.yarn/
+.DS_Store
+.coverage
+coverage/
+
+# Daten-Generator (macOS, SF Symbols.app)
+.build/

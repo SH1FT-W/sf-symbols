@@ -1,0 +1,762 @@
+{
+ "_comment": "English SF Symbols keyword or name part -> German search terms (handwritten; the app has no German keywords).",
+ "house": [
+  "Haus",
+  "Zuhause",
+  "Wohnung"
+ ],
+ "home": [
+  "Zuhause",
+  "Haus"
+ ],
+ "lamp": [
+  "Lampe",
+  "Leuchte"
+ ],
+ "floor": [
+  "Boden"
+ ],
+ "table": [
+  "Tisch"
+ ],
+ "desk": [
+  "Schreibtisch"
+ ],
+ "lightbulb": [
+  "Glühbirne",
+  "Licht",
+  "Lampe"
+ ],
+ "light": [
+  "Licht",
+  "Leuchte"
+ ],
+ "bulb": [
+  "Birne"
+ ],
+ "ceiling": [
+  "Decke"
+ ],
+ "chandelier": [
+  "Kronleuchter"
+ ],
+ "strip": [
+  "Streifen",
+  "Lichtleiste"
+ ],
+ "sun": [
+  "Sonne",
+  "Sonnig"
+ ],
+ "moon": [
+  "Mond",
+  "Nacht"
+ ],
+ "star": [
+  "Stern"
+ ],
+ "stars": [
+  "Sterne"
+ ],
+ "cloud": [
+  "Wolke",
+  "Bewölkt"
+ ],
+ "rain": [
+  "Regen"
+ ],
+ "snow": [
+  "Schnee"
+ ],
+ "snowflake": [
+  "Schneeflocke"
+ ],
+ "bolt": [
+  "Blitz",
+  "Strom",
+  "Energie"
+ ],
+ "wind": [
+  "Wind"
+ ],
+ "tornado": [
+  "Tornado"
+ ],
+ "fog": [
+  "Nebel"
+ ],
+ "smoke": [
+  "Rauch"
+ ],
+ "drop": [
+  "Tropfen",
+  "Wasser"
+ ],
+ "humidity": [
+  "Luftfeuchtigkeit"
+ ],
+ "thermometer": [
+  "Thermometer",
+  "Temperatur"
+ ],
+ "temperature": [
+  "Temperatur"
+ ],
+ "heat": [
+  "Wärme",
+  "Heizung"
+ ],
+ "heater": [
+  "Heizung",
+  "Heizkörper"
+ ],
+ "fan": [
+  "Ventilator",
+  "Lüfter"
+ ],
+ "air": [
+  "Luft"
+ ],
+ "purifier": [
+  "Luftreiniger"
+ ],
+ "conditioner": [
+  "Klimaanlage"
+ ],
+ "aqi": [
+  "Luftqualität"
+ ],
+ "leaf": [
+  "Blatt",
+  "Pflanze"
+ ],
+ "tree": [
+  "Baum"
+ ],
+ "door": [
+  "Tür"
+ ],
+ "garage": [
+  "Garage",
+  "Garagentor"
+ ],
+ "window": [
+  "Fenster"
+ ],
+ "blinds": [
+  "Jalousie",
+  "Rollo"
+ ],
+ "shade": [
+  "Rollo",
+  "Beschattung"
+ ],
+ "awning": [
+  "Markise"
+ ],
+ "curtains": [
+  "Vorhang",
+  "Vorhänge"
+ ],
+ "lock": [
+  "Schloss",
+  "Abgeschlossen"
+ ],
+ "unlock": [
+  "Aufschließen"
+ ],
+ "key": [
+  "Schlüssel"
+ ],
+ "shield": [
+  "Schild",
+  "Schutz",
+  "Sicherheit"
+ ],
+ "alarm": [
+  "Alarm",
+  "Wecker"
+ ],
+ "bell": [
+  "Glocke",
+  "Klingel"
+ ],
+ "sensor": [
+  "Sensor"
+ ],
+ "camera": [
+  "Kamera"
+ ],
+ "video": [
+  "Video",
+  "Kamera"
+ ],
+ "eye": [
+  "Auge",
+  "Sichtbar"
+ ],
+ "person": [
+  "Person",
+  "Mensch"
+ ],
+ "figure": [
+  "Person",
+  "Figur"
+ ],
+ "walk": [
+  "Gehen",
+  "Spazieren"
+ ],
+ "car": [
+  "Auto"
+ ],
+ "bicycle": [
+  "Fahrrad"
+ ],
+ "bus": [
+  "Bus"
+ ],
+ "tram": [
+  "Straßenbahn"
+ ],
+ "airplane": [
+  "Flugzeug"
+ ],
+ "train": [
+  "Zug"
+ ],
+ "fuelpump": [
+  "Tankstelle",
+  "Zapfsäule"
+ ],
+ "ev": [
+  "Elektroauto"
+ ],
+ "battery": [
+  "Batterie",
+  "Akku"
+ ],
+ "charger": [
+  "Ladegerät"
+ ],
+ "plug": [
+  "Stecker"
+ ],
+ "powerplug": [
+  "Stecker",
+  "Steckdose"
+ ],
+ "outlet": [
+  "Steckdose"
+ ],
+ "switch": [
+  "Schalter"
+ ],
+ "lightswitch": [
+  "Lichtschalter"
+ ],
+ "power": [
+  "Strom",
+  "Ein/Aus"
+ ],
+ "energy": [
+  "Energie"
+ ],
+ "solar": [
+  "Solar",
+  "Photovoltaik"
+ ],
+ "panel": [
+  "Panel"
+ ],
+ "gauge": [
+  "Anzeige",
+  "Tacho"
+ ],
+ "meter": [
+  "Zähler"
+ ],
+ "tv": [
+  "Fernseher",
+  "TV"
+ ],
+ "appletv": [
+  "Apple TV",
+  "Fernseher"
+ ],
+ "speaker": [
+  "Lautsprecher",
+  "Ton"
+ ],
+ "hifispeaker": [
+  "Lautsprecher"
+ ],
+ "music": [
+  "Musik"
+ ],
+ "note": [
+  "Note"
+ ],
+ "headphones": [
+  "Kopfhörer"
+ ],
+ "radio": [
+  "Radio"
+ ],
+ "play": [
+  "Abspielen",
+  "Wiedergabe"
+ ],
+ "pause": [
+  "Pause"
+ ],
+ "stop": [
+  "Stopp"
+ ],
+ "forward": [
+  "Vor"
+ ],
+ "backward": [
+  "Zurück"
+ ],
+ "shuffle": [
+  "Zufall"
+ ],
+ "repeat": [
+  "Wiederholen"
+ ],
+ "volume": [
+  "Lautstärke"
+ ],
+ "mute": [
+  "Stumm"
+ ],
+ "microphone": [
+  "Mikrofon"
+ ],
+ "mic": [
+  "Mikrofon"
+ ],
+ "gamecontroller": [
+  "Controller",
+  "Spielkonsole"
+ ],
+ "game": [
+  "Spiel"
+ ],
+ "phone": [
+  "Telefon"
+ ],
+ "iphone": [
+  "Handy",
+  "iPhone"
+ ],
+ "ipad": [
+  "Tablet",
+  "iPad"
+ ],
+ "laptopcomputer": [
+  "Laptop"
+ ],
+ "desktopcomputer": [
+  "Computer"
+ ],
+ "display": [
+  "Bildschirm",
+  "Monitor"
+ ],
+ "printer": [
+  "Drucker"
+ ],
+ "wifi": [
+  "WLAN"
+ ],
+ "network": [
+  "Netzwerk"
+ ],
+ "antenna": [
+  "Antenne"
+ ],
+ "router": [
+  "Router"
+ ],
+ "server": [
+  "Server"
+ ],
+ "washer": [
+  "Waschmaschine"
+ ],
+ "dryer": [
+  "Trockner"
+ ],
+ "dishwasher": [
+  "Geschirrspüler",
+  "Spülmaschine"
+ ],
+ "refrigerator": [
+  "Kühlschrank"
+ ],
+ "oven": [
+  "Ofen",
+  "Backofen"
+ ],
+ "stove": [
+  "Herd"
+ ],
+ "microwave": [
+  "Mikrowelle"
+ ],
+ "cooktop": [
+  "Kochfeld"
+ ],
+ "frying": [
+  "Bratpfanne"
+ ],
+ "pan": [
+  "Pfanne"
+ ],
+ "cup": [
+  "Tasse"
+ ],
+ "mug": [
+  "Becher"
+ ],
+ "coffee": [
+  "Kaffee"
+ ],
+ "fork": [
+  "Gabel"
+ ],
+ "knife": [
+  "Messer"
+ ],
+ "cart": [
+  "Einkaufswagen"
+ ],
+ "bag": [
+  "Tasche",
+  "Einkauf"
+ ],
+ "basket": [
+  "Korb"
+ ],
+ "gift": [
+  "Geschenk"
+ ],
+ "bed": [
+  "Bett",
+  "Schlafzimmer"
+ ],
+ "sofa": [
+  "Sofa",
+  "Couch",
+  "Wohnzimmer"
+ ],
+ "chair": [
+  "Stuhl"
+ ],
+ "bathtub": [
+  "Badewanne",
+  "Bad"
+ ],
+ "shower": [
+  "Dusche"
+ ],
+ "toilet": [
+  "Toilette",
+  "WC"
+ ],
+ "sink": [
+  "Waschbecken"
+ ],
+ "vacuum": [
+  "Staubsauger"
+ ],
+ "robotic": [
+  "Saugroboter"
+ ],
+ "trash": [
+  "Müll",
+  "Mülleimer",
+  "Abfall"
+ ],
+ "sparkles": [
+  "Funkeln",
+  "Sauber"
+ ],
+ "wand": [
+  "Zauberstab"
+ ],
+ "calendar": [
+  "Kalender"
+ ],
+ "clock": [
+  "Uhr",
+  "Zeit"
+ ],
+ "timer": [
+  "Timer"
+ ],
+ "stopwatch": [
+  "Stoppuhr"
+ ],
+ "hourglass": [
+  "Sanduhr"
+ ],
+ "envelope": [
+  "Brief",
+  "Post",
+  "Briefkasten"
+ ],
+ "mailbox": [
+  "Briefkasten"
+ ],
+ "tray": [
+  "Ablage"
+ ],
+ "archivebox": [
+  "Archiv"
+ ],
+ "shippingbox": [
+  "Paket"
+ ],
+ "box": [
+  "Kiste"
+ ],
+ "gear": [
+  "Zahnrad",
+  "Einstellungen"
+ ],
+ "gearshape": [
+  "Zahnrad",
+  "Einstellungen"
+ ],
+ "slider": [
+  "Regler"
+ ],
+ "wrench": [
+  "Schraubenschlüssel",
+  "Werkzeug"
+ ],
+ "hammer": [
+  "Hammer",
+  "Werkzeug"
+ ],
+ "checkmark": [
+  "Haken",
+  "OK"
+ ],
+ "xmark": [
+  "Kreuz",
+  "Schließen"
+ ],
+ "plus": [
+  "Plus",
+  "Hinzufügen"
+ ],
+ "minus": [
+  "Minus"
+ ],
+ "exclamationmark": [
+  "Ausrufezeichen",
+  "Warnung"
+ ],
+ "questionmark": [
+  "Fragezeichen",
+  "Hilfe"
+ ],
+ "info": [
+  "Info"
+ ],
+ "warning": [
+  "Warnung"
+ ],
+ "circle": [
+  "Kreis"
+ ],
+ "square": [
+  "Quadrat"
+ ],
+ "triangle": [
+  "Dreieck"
+ ],
+ "heart": [
+  "Herz"
+ ],
+ "flag": [
+  "Flagge"
+ ],
+ "bookmark": [
+  "Lesezeichen"
+ ],
+ "tag": [
+  "Etikett"
+ ],
+ "arrow": [
+  "Pfeil"
+ ],
+ "up": [
+  "Hoch",
+  "Oben"
+ ],
+ "down": [
+  "Runter",
+  "Unten"
+ ],
+ "left": [
+  "Links"
+ ],
+ "right": [
+  "Rechts"
+ ],
+ "fish": [
+  "Fisch",
+  "Aquarium"
+ ],
+ "tortoise": [
+  "Schildkröte"
+ ],
+ "hare": [
+  "Hase"
+ ],
+ "dog": [
+  "Hund"
+ ],
+ "cat": [
+  "Katze"
+ ],
+ "bird": [
+  "Vogel"
+ ],
+ "pawprint": [
+  "Pfote",
+  "Haustier"
+ ],
+ "ant": [
+  "Ameise"
+ ],
+ "drop.triangle": [
+  "Leck",
+  "Wasseralarm"
+ ],
+ "flame": [
+  "Flamme",
+  "Feuer"
+ ],
+ "fire": [
+  "Feuer"
+ ],
+ "snowman": [
+  "Schneemann"
+ ],
+ "umbrella": [
+  "Regenschirm"
+ ],
+ "beach": [
+  "Strand"
+ ],
+ "sunrise": [
+  "Sonnenaufgang"
+ ],
+ "sunset": [
+  "Sonnenuntergang"
+ ],
+ "water": [
+  "Wasser"
+ ],
+ "faucet": [
+  "Wasserhahn"
+ ],
+ "pipe": [
+  "Rohr"
+ ],
+ "spigot": [
+  "Wasserhahn"
+ ],
+ "person.2": [
+  "Personen",
+  "Familie"
+ ],
+ "family": [
+  "Familie"
+ ],
+ "child": [
+  "Kind"
+ ],
+ "baby": [
+  "Baby"
+ ],
+ "map": [
+  "Karte"
+ ],
+ "location": [
+  "Ort",
+  "Standort"
+ ],
+ "pin": [
+  "Stecknadel"
+ ],
+ "globe": [
+  "Welt",
+  "Globus"
+ ],
+ "book": [
+  "Buch"
+ ],
+ "newspaper": [
+  "Zeitung"
+ ],
+ "doc": [
+  "Dokument"
+ ],
+ "folder": [
+  "Ordner"
+ ],
+ "paperclip": [
+  "Büroklammer"
+ ],
+ "pencil": [
+  "Stift",
+  "Bearbeiten"
+ ],
+ "cloud.sun": [
+  "Teilweise bewölkt"
+ ],
+ "thermometer.high": [
+  "Hitze"
+ ],
+ "wave": [
+  "Welle"
+ ],
+ "lamp.floor": [
+  "Stehlampe"
+ ],
+ "lamp.table": [
+  "Tischlampe"
+ ],
+ "lamp.desk": [
+  "Schreibtischlampe"
+ ],
+ "lamp.ceiling": [
+  "Deckenlampe"
+ ],
+ "fan.floor": [
+  "Standventilator"
+ ],
+ "fan.ceiling": [
+  "Deckenventilator"
+ ],
+ "light.strip.2": [
+  "Lichtleiste",
+  "LED-Streifen"
+ ],
+ "robotic.vacuum": [
+  "Saugroboter"
+ ],
+ "air.purifier": [
+  "Luftreiniger"
+ ],
+ "heater.vertical": [
+  "Heizkörper"
+ ]
+}
