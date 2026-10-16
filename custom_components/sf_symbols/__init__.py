@@ -1,7 +1,7 @@
 """SF Symbols: Apples Symbole als Symbolsätze „sf:“ (Apple-Namen) und „ios:“ (Cupertino-kompatibel).
 
-Die Integration liefert ein Frontend-Modul und die vorab erzeugten Symboldaten aus. Alles Weitere
-(Auflösen der Namen, Ebenen, Suche im Symbol-Picker) passiert im Browser.
+Die Integration liefert ein Frontend-Modul (öffentlich) und die vorab erzeugten Symboldaten (nur mit Anmeldung)
+aus. Alles Weitere (Auflösen der Namen, Ebenen, Suche im Symbol-Picker) passiert im Browser.
 """
 
 from __future__ import annotations
@@ -20,8 +20,17 @@ from homeassistant.helpers.start import async_at_started
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.loader import async_get_integration
 
-from .const import CACHE_IMMUTABLE, CUPERTINO_DOMAIN, DATA_DIR, DOMAIN, FRONTEND_FILE, ISSUE_CUPERTINO, URL_BASE
-from .symbols import MODULE_FILE, SymbolData, SymbolDataError, load_symbol_data
+from .const import (
+    CACHE_IMMUTABLE,
+    CACHE_IMMUTABLE_PRIVATE,
+    CUPERTINO_DOMAIN,
+    DATA_DIR,
+    DOMAIN,
+    FRONTEND_FILE,
+    ISSUE_CUPERTINO,
+    URL_BASE,
+)
+from .symbols import MODULE_FILE, SymbolData, SymbolDataError, is_data_file, load_symbol_data
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -34,49 +43,91 @@ def module_url(data: SymbolData) -> str:
     return f"{URL_BASE}/{data.version}/{MODULE_FILE}"
 
 
-class SFSymbolsView(HomeAssistantView):
-    """Liefert Modul und Daten unter /sf_symbols/<version>/<datei>.
+def _current(hass: HomeAssistant) -> SymbolData | None:
+    for entry in hass.config_entries.async_loaded_entries(DOMAIN):
+        data: SymbolData = entry.runtime_data
+        return data
+    return None
 
-    Ohne Anmeldung (wie HAs eigene Frontend-Dateien): das Modul lädt der Browser vor dem Login-Token,
-    und es sind nur Symbolformen. Ist kein Eintrag geladen, gibt es 404.
+
+def _cache_header(data: SymbolData, version: str, *, private: bool) -> str:
+    """Alte Versionen (Browser-Cache nach einem Update) bekommen den aktuellen Stand, aber ohne Langzeit-Cache."""
+    if version != data.version:
+        return "no-cache"
+    return CACHE_IMMUTABLE_PRIVATE if private else CACHE_IMMUTABLE
+
+
+async def _read(hass: HomeAssistant, data: SymbolData, path: str) -> bytes | None:
+    """Erst im Event-Loop im Speicher-Cache nachsehen, nur beim ersten Abruf die Datei im Executor lesen."""
+    cached = data.cached(path)
+    if cached is not None:
+        return cached
+    return await hass.async_add_executor_job(data.load, path)
+
+
+class SFSymbolsModuleView(HomeAssistantView):
+    """Liefert nur das Loader-Modul öffentlich aus (/sf_symbols/<version>/sf-symbols.js).
+
+    Der Browser lädt Zusatzmodule ohne Token; das Modul enthält keine Symbole. Die Daten holt es danach
+    mit dem Token des angemeldeten Nutzers über SFSymbolsDataView. Ohne geladenen Eintrag: 404.
     """
 
-    url = URL_BASE + "/{version}/{path:.+}"
-    name = "api:sf_symbols"
+    url = f"{URL_BASE}/{{version}}/{MODULE_FILE}"
+    name = "api:sf_symbols:module"
     requires_auth = False
 
     def __init__(self, hass: HomeAssistant) -> None:
         self.hass = hass
 
-    def _current(self) -> SymbolData | None:
-        for entry in self.hass.config_entries.async_loaded_entries(DOMAIN):
-            data: SymbolData = entry.runtime_data
-            return data
-        return None
-
-    async def get(self, request: web.Request, version: str, path: str) -> web.StreamResponse:
-        data = self._current()
+    async def get(self, request: web.Request, version: str) -> web.StreamResponse:
+        data = _current(self.hass)
         if data is None:
             return web.Response(status=HTTPStatus.NOT_FOUND)
-        # Alte Versionen (Browser-Cache nach einem Update) bekommen den aktuellen Stand, aber ohne Langzeit-Cache.
-        cache = CACHE_IMMUTABLE if version == data.version else "no-cache"
-        if path == MODULE_FILE:
-            body = await self.hass.async_add_executor_job(data.module_source)
-            return web.Response(
-                body=body, content_type="text/javascript", charset="utf-8", headers={"Cache-Control": cache}
-            )
-        payload = await self.hass.async_add_executor_job(data.data_file, path)
+        body = await _read(self.hass, data, MODULE_FILE)
+        return web.Response(
+            body=body,
+            content_type="text/javascript",
+            charset="utf-8",
+            headers={"Cache-Control": _cache_header(data, version, private=False)},
+        )
+
+
+class SFSymbolsDataView(HomeAssistantView):
+    """Symboldaten (index.json, m/xx.json, v/xx.json) nur mit HA-Anmeldung, sonst 401.
+
+    Apples Symbole sollen nicht ohne Login abrufbar sein. Cache: „private“ (nur der Browser des Nutzers),
+    ein Jahr, versionierte URL.
+    """
+
+    url = URL_BASE + "/{version}/{path:.+}"
+    name = "api:sf_symbols:data"
+    requires_auth = True
+
+    def __init__(self, hass: HomeAssistant) -> None:
+        self.hass = hass
+
+    async def get(self, request: web.Request, version: str, path: str) -> web.StreamResponse:
+        data = _current(self.hass)
+        if data is None or not is_data_file(path):
+            return web.Response(status=HTTPStatus.NOT_FOUND)
+        payload = await _read(self.hass, data, path)
         if payload is None:
             return web.Response(status=HTTPStatus.NOT_FOUND)
         return web.Response(
             body=payload,
             content_type="application/json",
-            headers={"Cache-Control": cache, "Content-Encoding": "gzip", "Vary": "Accept-Encoding"},
+            headers={
+                "Cache-Control": _cache_header(data, version, private=True),
+                "Content-Encoding": "gzip",
+                "Vary": "Accept-Encoding",
+            },
         )
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
-    hass.http.register_view(SFSymbolsView(hass))
+    # Reihenfolge zählt: das öffentliche Modul vor der allgemeinen Daten-Route anmelden.
+    hass.http.register_view(SFSymbolsModuleView(hass))
+    hass.http.register_view(SFSymbolsDataView(hass))
     return True
 
 

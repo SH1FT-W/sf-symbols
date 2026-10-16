@@ -429,18 +429,40 @@ def german_terms() -> dict[str, list[str]]:
     return {k: v for k, v in data.items() if not k.startswith("_")}
 
 
+# Name parts that only describe the style, not the thing ("trash.fill" is no "fill trash").
+STYLE_PARTS = {"fill", "slash", "circle", "square", "rectangle", "badge", "and", "inverse", "dashed", "2", "3"}
+SPACES = re.compile(r"\s+")
+
+
+def search_term(word: str) -> str:
+    """HA's icon picker turns spaces in the query into "-" ("floor lamp" → "floor-lamp") and compares
+    lower-case, so multi-word keywords must be stored the same way to be found."""
+    return SPACES.sub("-", word.strip().lower())
+
+
 def keywords_for(name: str, search: dict[str, list[str]], enhanced: dict[str, list[str]], cats: dict[str, list[str]],
                  de: dict[str, list[str]]) -> list[str]:  # fmt: skip
     words: list[str] = []
-    for w in [*search.get(name, []), *enhanced.get(name, []), *cats.get(name, [])]:
-        if w not in words:
+
+    def add(word: str) -> None:
+        w = search_term(word)
+        if w and w not in words:
             words.append(w)
-    german: list[str] = []
+
+    for w in [*search.get(name, []), *enhanced.get(name, []), *cats.get(name, [])]:
+        add(w)
     parts = name.split(".")
-    prefixes = {".".join(parts[:i]) for i in range(2, len(parts) + 1)}  # lamp.floor in lamp.floor.fill
-    for token in {*parts, *prefixes, *(t for w in words for t in re.split(r"[\s\-]+", w.lower()))}:
+    # natural word order: "lamp.floor" → "floor-lamp" (HA finds "floor lamp" then)
+    if len(parts) >= 2 and parts[1] not in STYLE_PARTS:
+        add(f"{parts[1]}-{parts[0]}")
+    # German terms only from the symbol's own name (parts and leading parts like "lamp.floor"): Apple's
+    # keyword lists are too loose for that ("gear" has "tv", "eject" has "trash").
+    prefixes = {".".join(parts[:i]) for i in range(2, len(parts) + 1)}
+    german: list[str] = []
+    for token in {*parts, *prefixes}:
         for g in de.get(token, []):
-            if g not in german:
+            g = search_term(g)
+            if g not in german and g not in words:
                 german.append(g)
     return words + sorted(german)
 

@@ -11,6 +11,8 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
 - Lokal committen ok. **Push / GitHub-Repo anlegen nur nach Rückfrage.**
 - Prod-HA (192.168.10.30) nur auf Daniels ausdrücklichen Wunsch; Updates laufen über Privat-Updates
   (`~/Software/privat-updates`), nie selbst nach Prod kopieren, kein Neustart ohne Rückfrage.
+- Deutsche Suchbegriffe (`tools/keywords_de.json`) greifen nur über Namensteile/-anfänge, nicht über Apples
+  englische Keywords (zu ungenau). HAs Picker macht aus Leerzeichen „-“ → Suchbegriffe mit „-“ speichern.
 - Kompatibilität: alle `ios:`-Namen aus `tests/data/` müssen auflösen (Prod-Entitäten, Dashboards
   `mein-zuhause`/`-mobile`, Casora). Casora prüft per `getIconList()` auf `…-fill`/`…-inverse` – die `ios:`-Liste
   muss Cupertino-Schreibweise behalten. `ios:` bleibt im engen Rahmen (Casora skaliert `lamp-floor`/`lamp-table` 0.68).
@@ -21,8 +23,10 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
 - Weiß in mehrfarbigen Symbolen = `var(--sf-symbols-white, var(--primary-text-color))`, nicht Apple-Weiß
   (im hellen Design sonst unsichtbar). Wer Apple-Weiß will, setzt die Variable selbst.
 - Doppelte Einträge im Picker (`ios:` + `sf:`) bleiben bewusst: die `ios:`-Liste braucht Casora für die
-  `-fill`-Prüfung, HAs Picker zeigt jeden Satz.
-- `sf:`-Rahmen bleibt bewusst MDI-groß (Kreis-Symbol / 0.85), `ios:` eng wie Cupertino.
+  `-fill`-Prüfung, HAs Picker zeigt jeden Satz. Seit 1.1.0 tragen nur `sf:`-Einträge Suchbegriffe (Suchwörter
+  zeigen jedes Symbol einmal), `ios:` wird nur über den Namen gefunden.
+- `sf:`-Rahmen bleibt bewusst MDI-groß (Kreis-Symbol / 0.85), `ios:` eng wie Cupertino. Seit 1.1.0 ist das
+  Quadrat für alle `sf:` gleich; größere Symbole (~27 %, meist breite) werden im Frontend hineinverkleinert.
 
 ## Aufbau
 
@@ -33,10 +37,12 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
   `meta.json` (Satz-Version, Anzahl, Hash). Deutsche Suchbegriffe: `tools/keywords_de.json` (handgeschrieben,
   die App hat keine deutschen Keywords). Neuer Satz: App aktualisieren, Skript laufen lassen, Version erhöhen.
 - `tools/preview.py` = PNG-Kontaktbogen zum Ansehen, `tools/logos.py` = Logo-Varianten/Vergleich/brand.
-- Server: `SFSymbolsView` liefert `/sf_symbols/<version>/{sf-symbols.js,index.json,m/xx.json,v/xx.json}`
-  (gzip, `immutable` nur bei aktueller Version, sonst `no-cache`; 404 ohne geladenen Eintrag).
+- Server: `SFSymbolsModuleView` liefert `/sf_symbols/<version>/sf-symbols.js` öffentlich, `SFSymbolsDataView`
+  `index.json`, `m/xx.json`, `v/xx.json` nur mit Login (`requires_auth`, sonst 401; gzip, `private … immutable`
+  nur bei aktueller Version, sonst `no-cache`; 404 ohne geladenen Eintrag). Speicher-Cache wird im Event-Loop geprüft.
   Version = Integrationsversion + Daten-Hash + JS-Hash → Cache-Busting.
 - Frontend `frontend/sf-symbols.js`: `window.customIcons.sf/.ios` (per `defineProperty`, hat Vorrang vor Cupertino),
+  Daten per Token aus `window.hassConnection` bzw. `<home-assistant>.hass.auth` (wartet auf der Login-Seite),
   Varianten über Hook in `ha-svg-icon.updated` (Ebenen-Map nach Pfad; Fallback = HAs `secondaryPath`).
 - Konflikt: Cupertino geladen/eingerichtet → Repair-Hinweis `cupertino_installed` (nach Start erneut geprüft).
 

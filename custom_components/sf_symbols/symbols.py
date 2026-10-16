@@ -19,6 +19,11 @@ _DATA_FILE = re.compile(r"^(index|[mv]/[0-9a-f]{2})\.json$")
 MODULE_FILE = "sf-symbols.js"
 
 
+def is_data_file(path: str) -> bool:
+    """index.json, m/xx.json oder v/xx.json (nicht das Modul, keine anderen Pfade)."""
+    return bool(_DATA_FILE.match(path))
+
+
 class SymbolDataError(Exception):
     """Die Symboldaten fehlen oder sind beschädigt."""
 
@@ -41,6 +46,16 @@ class SymbolData:
     def set_version(self) -> str:
         return str(self.meta.get("set_version", "?"))
 
+    def cached(self, path: str) -> bytes | None:
+        """Schon gelesener Inhalt (ohne Dateizugriff, im Event-Loop nutzbar)."""
+        return self._cache.get(path)
+
+    def load(self, path: str) -> bytes | None:
+        """Modul oder Datendatei lesen und merken (blockierend → Executor)."""
+        if path == MODULE_FILE:
+            return self.module_source()
+        return self.data_file(path)
+
     def module_source(self) -> bytes:
         """Frontend-Modul mit eingesetzten Eckdaten (Rahmen für sf:, Anzahl der Stücke)."""
         if MODULE_FILE not in self._cache:
@@ -56,7 +71,7 @@ class SymbolData:
 
     def data_file(self, path: str) -> bytes | None:
         """Gzip-komprimierter Inhalt einer Datendatei, None bei unbekanntem Pfad."""
-        if not _DATA_FILE.match(path):
+        if not is_data_file(path):
             return None
         if path not in self._cache:
             file = self.data_dir / f"{path}.gz"

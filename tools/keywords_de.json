@@ -5,10 +5,6 @@
   "Zuhause",
   "Wohnung"
  ],
- "home": [
-  "Zuhause",
-  "Haus"
- ],
  "lamp": [
   "Lampe",
   "Leuchte"
@@ -25,20 +21,21 @@
  "lightbulb": [
   "Glühbirne",
   "Licht",
-  "Lampe"
+  "Lampe",
+  "Leuchtmittel",
+  "Leuchte",
+  "Birne"
  ],
  "light": [
   "Licht",
   "Leuchte"
  ],
- "bulb": [
-  "Birne"
- ],
  "ceiling": [
   "Decke"
  ],
  "chandelier": [
-  "Kronleuchter"
+  "Kronleuchter",
+  "Leuchte"
  ],
  "strip": [
   "Streifen",
@@ -50,7 +47,8 @@
  ],
  "moon": [
   "Mond",
-  "Nacht"
+  "Nacht",
+  "Nachtmodus"
  ],
  "star": [
   "Stern"
@@ -60,7 +58,8 @@
  ],
  "cloud": [
   "Wolke",
-  "Bewölkt"
+  "Bewölkt",
+  "Wetter"
  ],
  "rain": [
   "Regen"
@@ -77,42 +76,47 @@
   "Energie"
  ],
  "wind": [
-  "Wind"
+  "Wind",
+  "Wetter"
  ],
  "tornado": [
-  "Tornado"
+  "Tornado",
+  "Sturm",
+  "Unwetter"
  ],
  "fog": [
   "Nebel"
  ],
  "smoke": [
-  "Rauch"
+  "Rauch",
+  "Rauchmelder",
+  "Feuer"
  ],
  "drop": [
   "Tropfen",
   "Wasser"
  ],
  "humidity": [
-  "Luftfeuchtigkeit"
+  "Luftfeuchtigkeit",
+  "Feuchtigkeit"
  ],
  "thermometer": [
   "Thermometer",
   "Temperatur"
  ],
- "temperature": [
-  "Temperatur"
- ],
  "heat": [
   "Wärme",
-  "Heizung"
+  "Hitze"
  ],
  "heater": [
   "Heizung",
-  "Heizkörper"
+  "Heizkörper",
+  "Radiator"
  ],
  "fan": [
   "Ventilator",
-  "Lüfter"
+  "Lüfter",
+  "Lüftung"
  ],
  "air": [
   "Luft"
@@ -121,17 +125,24 @@
   "Luftreiniger"
  ],
  "conditioner": [
-  "Klimaanlage"
+  "Klimaanlage",
+  "Klima"
  ],
  "aqi": [
-  "Luftqualität"
+  "Luftqualität",
+  "Feinstaub"
  ],
  "leaf": [
   "Blatt",
-  "Pflanze"
+  "Pflanze",
+  "Natur",
+  "Öko",
+  "Garten"
  ],
  "tree": [
-  "Baum"
+  "Baum",
+  "Garten",
+  "Natur"
  ],
  "door": [
   "Tür"
@@ -145,25 +156,33 @@
  ],
  "blinds": [
   "Jalousie",
-  "Rollo"
+  "Rollo",
+  "Rollladen",
+  "Rolladen",
+  "Raffstore",
+  "Beschattung",
+  "Sonnenschutz"
  ],
  "shade": [
   "Rollo",
-  "Beschattung"
+  "Beschattung",
+  "Sonnenschutz"
  ],
  "awning": [
-  "Markise"
+  "Markise",
+  "Sonnenschutz",
+  "Beschattung"
  ],
  "curtains": [
   "Vorhang",
-  "Vorhänge"
+  "Vorhänge",
+  "Gardine"
  ],
  "lock": [
   "Schloss",
-  "Abgeschlossen"
- ],
- "unlock": [
-  "Aufschließen"
+  "Abgeschlossen",
+  "Verriegelt",
+  "Sicherheit"
  ],
  "key": [
   "Schlüssel"
@@ -171,7 +190,8 @@
  "shield": [
   "Schild",
   "Schutz",
-  "Sicherheit"
+  "Sicherheit",
+  "Alarmanlage"
  ],
  "alarm": [
   "Alarm",
@@ -179,17 +199,22 @@
  ],
  "bell": [
   "Glocke",
-  "Klingel"
+  "Klingel",
+  "Benachrichtigung",
+  "Alarm"
  ],
  "sensor": [
-  "Sensor"
+  "Sensor",
+  "Melder"
  ],
  "camera": [
-  "Kamera"
+  "Kamera",
+  "Foto"
  ],
  "video": [
   "Video",
-  "Kamera"
+  "Kamera",
+  "Überwachungskamera"
  ],
  "eye": [
   "Auge",
@@ -208,88 +233,103 @@
   "Spazieren"
  ],
  "car": [
-  "Auto"
+  "Auto",
+  "Fahrzeug",
+  "PKW"
  ],
  "bicycle": [
-  "Fahrrad"
+  "Fahrrad",
+  "Rad",
+  "Velo"
  ],
  "bus": [
   "Bus"
  ],
  "tram": [
-  "Straßenbahn"
+  "Straßenbahn",
+  "Tram"
  ],
  "airplane": [
-  "Flugzeug"
+  "Flugzeug",
+  "Flug",
+  "Reise"
  ],
  "train": [
   "Zug"
  ],
  "fuelpump": [
   "Tankstelle",
-  "Zapfsäule"
+  "Zapfsäule",
+  "Tanken"
  ],
  "ev": [
-  "Elektroauto"
+  "Elektroauto",
+  "E-Auto",
+  "Laden"
  ],
  "battery": [
   "Batterie",
-  "Akku"
+  "Akku",
+  "Ladestand"
  ],
  "charger": [
-  "Ladegerät"
+  "Ladegerät",
+  "Ladestation"
  ],
  "plug": [
   "Stecker"
  ],
  "powerplug": [
   "Stecker",
-  "Steckdose"
- ],
- "outlet": [
-  "Steckdose"
+  "Steckdose",
+  "Strom"
  ],
  "switch": [
   "Schalter"
  ],
  "lightswitch": [
-  "Lichtschalter"
+  "Lichtschalter",
+  "Schalter"
  ],
  "power": [
   "Strom",
-  "Ein/Aus"
- ],
- "energy": [
-  "Energie"
- ],
- "solar": [
-  "Solar",
-  "Photovoltaik"
+  "Ein/Aus",
+  "Einschalten"
  ],
  "panel": [
   "Panel"
  ],
  "gauge": [
   "Anzeige",
-  "Tacho"
+  "Tacho",
+  "Zähler",
+  "Messgerät"
  ],
  "meter": [
-  "Zähler"
+  "Zähler",
+  "Stromzähler"
  ],
  "tv": [
   "Fernseher",
-  "TV"
+  "TV",
+  "Fernsehen",
+  "Bildschirm"
  ],
  "appletv": [
   "Apple TV",
-  "Fernseher"
+  "Fernseher",
+  "TV"
  ],
  "speaker": [
   "Lautsprecher",
-  "Ton"
+  "Ton",
+  "Lautstärke"
  ],
  "hifispeaker": [
-  "Lautsprecher"
+  "Lautsprecher",
+  "Box",
+  "HiFi",
+  "Musikanlage"
  ],
  "music": [
   "Musik"
@@ -325,12 +365,6 @@
  "repeat": [
   "Wiederholen"
  ],
- "volume": [
-  "Lautstärke"
- ],
- "mute": [
-  "Stumm"
- ],
  "microphone": [
   "Mikrofon"
  ],
@@ -339,9 +373,9 @@
  ],
  "gamecontroller": [
   "Controller",
-  "Spielkonsole"
- ],
- "game": [
+  "Spielkonsole",
+  "Konsole",
+  "Gamepad",
   "Spiel"
  ],
  "phone": [
@@ -363,13 +397,17 @@
  ],
  "display": [
   "Bildschirm",
-  "Monitor"
+  "Monitor",
+  "Display"
  ],
  "printer": [
   "Drucker"
  ],
  "wifi": [
-  "WLAN"
+  "WLAN",
+  "WiFi",
+  "Funk",
+  "Internet"
  ],
  "network": [
   "Netzwerk"
@@ -384,30 +422,38 @@
   "Server"
  ],
  "washer": [
-  "Waschmaschine"
+  "Waschmaschine",
+  "Wäsche"
  ],
  "dryer": [
-  "Trockner"
+  "Trockner",
+  "Wäschetrockner",
+  "Wäsche"
  ],
  "dishwasher": [
   "Geschirrspüler",
   "Spülmaschine"
  ],
  "refrigerator": [
-  "Kühlschrank"
+  "Kühlschrank",
+  "Kühlung"
  ],
  "oven": [
   "Ofen",
-  "Backofen"
+  "Backofen",
+  "Herd"
  ],
  "stove": [
-  "Herd"
+  "Herd",
+  "Kochfeld"
  ],
  "microwave": [
   "Mikrowelle"
  ],
  "cooktop": [
-  "Kochfeld"
+  "Kochfeld",
+  "Herd",
+  "Induktion"
  ],
  "frying": [
   "Bratpfanne"
@@ -419,9 +465,8 @@
   "Tasse"
  ],
  "mug": [
-  "Becher"
- ],
- "coffee": [
+  "Becher",
+  "Tasse",
   "Kaffee"
  ],
  "fork": [
@@ -464,13 +509,16 @@
  ],
  "toilet": [
   "Toilette",
-  "WC"
+  "WC",
+  "Bad"
  ],
  "sink": [
-  "Waschbecken"
+  "Waschbecken",
+  "Spüle"
  ],
  "vacuum": [
-  "Staubsauger"
+  "Staubsauger",
+  "Saugroboter"
  ],
  "robotic": [
   "Saugroboter"
@@ -478,7 +526,9 @@
  "trash": [
   "Müll",
   "Mülleimer",
-  "Abfall"
+  "Abfall",
+  "Mülltonne",
+  "Müllabfuhr"
  ],
  "sparkles": [
   "Funkeln",
@@ -506,10 +556,8 @@
  "envelope": [
   "Brief",
   "Post",
-  "Briefkasten"
- ],
- "mailbox": [
-  "Briefkasten"
+  "Briefkasten",
+  "E-Mail"
  ],
  "tray": [
   "Ablage"
@@ -518,7 +566,9 @@
   "Archiv"
  ],
  "shippingbox": [
-  "Paket"
+  "Paket",
+  "Lieferung",
+  "Karton"
  ],
  "box": [
   "Kiste"
@@ -567,9 +617,6 @@
  ],
  "info": [
   "Info"
- ],
- "warning": [
-  "Warnung"
  ],
  "circle": [
   "Kreis"
@@ -620,37 +667,43 @@
   "Hase"
  ],
  "dog": [
-  "Hund"
+  "Hund",
+  "Haustier"
  ],
  "cat": [
-  "Katze"
+  "Katze",
+  "Haustier"
  ],
  "bird": [
   "Vogel"
  ],
  "pawprint": [
   "Pfote",
-  "Haustier"
+  "Haustier",
+  "Tier"
  ],
  "ant": [
   "Ameise"
  ],
  "drop.triangle": [
   "Leck",
-  "Wasseralarm"
+  "Wasseralarm",
+  "Wasserleck",
+  "Wassermelder",
+  "Feuchtigkeit"
  ],
  "flame": [
   "Flamme",
-  "Feuer"
+  "Feuer",
+  "Gas"
  ],
  "fire": [
-  "Feuer"
- ],
- "snowman": [
-  "Schneemann"
+  "Feuer",
+  "Brand"
  ],
  "umbrella": [
-  "Regenschirm"
+  "Regenschirm",
+  "Regen"
  ],
  "beach": [
   "Strand"
@@ -664,27 +717,19 @@
  "water": [
   "Wasser"
  ],
- "faucet": [
-  "Wasserhahn"
- ],
  "pipe": [
   "Rohr"
  ],
  "spigot": [
-  "Wasserhahn"
+  "Wasserhahn",
+  "Wasser"
  ],
  "person.2": [
   "Personen",
   "Familie"
  ],
- "family": [
-  "Familie"
- ],
  "child": [
   "Kind"
- ],
- "baby": [
-  "Baby"
  ],
  "map": [
   "Karte"
@@ -720,43 +765,597 @@
   "Bearbeiten"
  ],
  "cloud.sun": [
-  "Teilweise bewölkt"
+  "Teilweise bewölkt",
+  "Wetter",
+  "Heiter"
  ],
  "thermometer.high": [
-  "Hitze"
+  "Hitze",
+  "Warm"
  ],
  "wave": [
   "Welle"
  ],
  "lamp.floor": [
-  "Stehlampe"
+  "Stehlampe",
+  "Stehleuchte",
+  "Bodenlampe",
+  "Deckenfluter",
+  "Leuchte"
  ],
  "lamp.table": [
-  "Tischlampe"
+  "Tischlampe",
+  "Tischleuchte",
+  "Nachttischlampe",
+  "Leuchte"
  ],
  "lamp.desk": [
-  "Schreibtischlampe"
+  "Schreibtischlampe",
+  "Leselampe",
+  "Leuchte"
  ],
  "lamp.ceiling": [
-  "Deckenlampe"
+  "Deckenlampe",
+  "Deckenleuchte",
+  "Leuchte"
  ],
  "fan.floor": [
-  "Standventilator"
+  "Standventilator",
+  "Ventilator",
+  "Lüfter"
  ],
  "fan.ceiling": [
-  "Deckenventilator"
+  "Deckenventilator",
+  "Ventilator",
+  "Lüfter"
  ],
  "light.strip.2": [
   "Lichtleiste",
-  "LED-Streifen"
+  "LED-Streifen",
+  "Leuchte"
  ],
  "robotic.vacuum": [
-  "Saugroboter"
+  "Saugroboter",
+  "Staubsauger",
+  "Roboter"
  ],
  "air.purifier": [
-  "Luftreiniger"
+  "Luftreiniger",
+  "Luftqualität"
  ],
  "heater.vertical": [
-  "Heizkörper"
+  "Heizkörper",
+  "Heizung",
+  "Radiator",
+  "Thermostat"
+ ],
+ "blinds.horizontal": [
+  "Jalousie",
+  "Rollladen",
+  "Rolladen",
+  "Rollo",
+  "Raffstore"
+ ],
+ "blinds.vertical": [
+  "Vertikaljalousie",
+  "Lamellenvorhang"
+ ],
+ "roller": [
+  "Rollo",
+  "Rollladen"
+ ],
+ "roller.shade": [
+  "Rollo",
+  "Rollladen",
+  "Rolladen",
+  "Beschattung"
+ ],
+ "cloud.rain": [
+  "Regen",
+  "Wetter",
+  "Regnerisch"
+ ],
+ "cloud.drizzle": [
+  "Nieselregen",
+  "Regen",
+  "Wetter"
+ ],
+ "cloud.heavyrain": [
+  "Starkregen",
+  "Regen",
+  "Wetter"
+ ],
+ "cloud.bolt": [
+  "Gewitter",
+  "Blitz",
+  "Wetter"
+ ],
+ "cloud.bolt.rain": [
+  "Gewitter",
+  "Regen",
+  "Unwetter"
+ ],
+ "cloud.sun.bolt": [
+  "Gewitter",
+  "Wetter"
+ ],
+ "cloud.moon.bolt": [
+  "Gewitter",
+  "Wetter"
+ ],
+ "cloud.snow": [
+  "Schnee",
+  "Wetter"
+ ],
+ "cloud.sleet": [
+  "Schneeregen",
+  "Wetter"
+ ],
+ "cloud.hail": [
+  "Hagel",
+  "Wetter",
+  "Unwetter"
+ ],
+ "cloud.fog": [
+  "Nebel",
+  "Wetter"
+ ],
+ "drizzle": [
+  "Nieselregen",
+  "Regen"
+ ],
+ "heavyrain": [
+  "Starkregen",
+  "Regen"
+ ],
+ "hail": [
+  "Hagel"
+ ],
+ "sun.max": [
+  "Sonne",
+  "Sonnig",
+  "Wetter",
+  "Helligkeit",
+  "Solar",
+  "Photovoltaik",
+  "PV"
+ ],
+ "sun.min": [
+  "Sonne",
+  "Helligkeit"
+ ],
+ "hurricane": [
+  "Hurrikan",
+  "Sturm",
+  "Unwetter"
+ ],
+ "light.recessed": [
+  "Einbauleuchte",
+  "Spot",
+  "Downlight",
+  "Leuchte"
+ ],
+ "light.panel": [
+  "Lichtpanel",
+  "Panel",
+  "Leuchte"
+ ],
+ "light.cylindrical.ceiling": [
+  "Deckenspot",
+  "Leuchte"
+ ],
+ "light.ribbon": [
+  "Lichtband",
+  "LED-Streifen",
+  "Leuchte"
+ ],
+ "light.beacon.max": [
+  "Alarm",
+  "Sirene",
+  "Warnleuchte",
+  "Blaulicht"
+ ],
+ "light.beacon.min": [
+  "Alarm",
+  "Sirene",
+  "Warnleuchte"
+ ],
+ "lightswitch.on": [
+  "Lichtschalter",
+  "Schalter",
+  "An"
+ ],
+ "lightswitch.off": [
+  "Lichtschalter",
+  "Schalter",
+  "Aus"
+ ],
+ "thermometer.low": [
+  "Kalt",
+  "Kälte"
+ ],
+ "thermometer.variable": [
+  "Thermostat",
+  "Temperatur"
+ ],
+ "thermometer.medium": [
+  "Thermostat",
+  "Temperatur"
+ ],
+ "air.conditioner.horizontal": [
+  "Klimaanlage",
+  "Klima",
+  "Kühlung"
+ ],
+ "air.conditioner.vertical": [
+  "Klimaanlage",
+  "Klima",
+  "Kühlung"
+ ],
+ "fan.desk": [
+  "Tischventilator",
+  "Ventilator",
+  "Lüfter"
+ ],
+ "fanblades": [
+  "Ventilator",
+  "Lüfter",
+  "Lüftung"
+ ],
+ "vent": [
+  "Lüftung",
+  "Belüftung"
+ ],
+ "humidifier": [
+  "Luftbefeuchter",
+  "Luftfeuchtigkeit"
+ ],
+ "dehumidifier": [
+  "Luftentfeuchter",
+  "Luftfeuchtigkeit"
+ ],
+ "carbon": [
+  "Kohlenmonoxid",
+  "Kohlendioxid",
+  "CO2"
+ ],
+ "appletvremote": [
+  "Fernbedienung"
+ ],
+ "remote": [
+  "Fernbedienung"
+ ],
+ "homepod": [
+  "Lautsprecher",
+  "HomePod",
+  "Smart Speaker"
+ ],
+ "homepodmini": [
+  "Lautsprecher",
+  "HomePod"
+ ],
+ "hifireceiver": [
+  "Receiver",
+  "Verstärker",
+  "AV-Receiver"
+ ],
+ "poweroutlet": [
+  "Steckdose",
+  "Strom"
+ ],
+ "poweroutlet.type.f": [
+  "Schuko",
+  "Steckdose"
+ ],
+ "switch.2": [
+  "Schalter"
+ ],
+ "battery.100percent": [
+  "Batterie voll",
+  "Akku voll"
+ ],
+ "battery.0percent": [
+  "Batterie leer",
+  "Akku leer"
+ ],
+ "batteryblock": [
+  "Batteriespeicher",
+  "Akku",
+  "Speicher",
+  "Batterie"
+ ],
+ "batterypack": [
+  "Powerbank",
+  "Akku"
+ ],
+ "bolt.batteryblock": [
+  "Batteriespeicher",
+  "Hausspeicher",
+  "Akku"
+ ],
+ "ev.charger": [
+  "Wallbox",
+  "Ladestation",
+  "Ladesäule",
+  "E-Auto"
+ ],
+ "sun.horizon": [
+  "Sonnenaufgang",
+  "Sonnenuntergang"
+ ],
+ "bolt.horizontal": [
+  "Strom",
+  "Energie",
+  "Netz"
+ ],
+ "door.left.hand.open": [
+  "Tür offen",
+  "Tür"
+ ],
+ "door.left.hand.closed": [
+  "Tür zu",
+  "Tür"
+ ],
+ "door.garage.open": [
+  "Garagentor",
+  "Garage",
+  "Tor"
+ ],
+ "door.garage.closed": [
+  "Garagentor",
+  "Garage",
+  "Tor"
+ ],
+ "door.french.open": [
+  "Terrassentür",
+  "Balkontür"
+ ],
+ "door.french.closed": [
+  "Terrassentür",
+  "Balkontür"
+ ],
+ "door.sliding.left.hand.open": [
+  "Schiebetür"
+ ],
+ "doorbell": [
+  "Klingel",
+  "Türklingel"
+ ],
+ "window.casement": [
+  "Fenster",
+  "Flügelfenster"
+ ],
+ "window.casement.closed": [
+  "Fenster zu",
+  "Fenster"
+ ],
+ "window.vertical.open": [
+  "Fenster offen",
+  "Fenster"
+ ],
+ "window.vertical.closed": [
+  "Fenster zu",
+  "Fenster"
+ ],
+ "window.horizontal": [
+  "Fenster"
+ ],
+ "window.awning": [
+  "Kippfenster",
+  "Fenster gekippt"
+ ],
+ "window.shade.open": [
+  "Rollladen",
+  "Rollo",
+  "Fenster"
+ ],
+ "window.shade.closed": [
+  "Rollladen",
+  "Rollo",
+  "Fenster"
+ ],
+ "lock.open": [
+  "Schloss offen",
+  "Entriegelt",
+  "Aufgeschlossen",
+  "Aufschließen"
+ ],
+ "web.camera": [
+  "Webcam",
+  "Kamera"
+ ],
+ "video.doorbell": [
+  "Videoklingel",
+  "Türklingel",
+  "Klingel"
+ ],
+ "sensor.fill": [
+  "Bewegungsmelder",
+  "Präsenzmelder",
+  "Sensor"
+ ],
+ "motion": [
+  "Bewegung",
+  "Bewegungsmelder"
+ ],
+ "figure.walk.motion": [
+  "Bewegung",
+  "Bewegungsmelder",
+  "Präsenz"
+ ],
+ "figure.walk": [
+  "Gehen",
+  "Laufen",
+  "Bewegung",
+  "Person"
+ ],
+ "figure.stand": [
+  "Person",
+  "Stehen"
+ ],
+ "person.wave.2": [
+  "Präsenz",
+  "Anwesenheit",
+  "Präsenzmelder",
+  "Radar"
+ ],
+ "person.crop.circle.badge.checkmark": [
+  "Anwesend",
+  "Anwesenheit",
+  "Zuhause"
+ ],
+ "person.crop.circle.badge.xmark": [
+  "Abwesend"
+ ],
+ "fire.extinguisher": [
+  "Feuerlöscher"
+ ],
+ "exclamationmark.triangle": [
+  "Warnung",
+  "Achtung",
+  "Alarm"
+ ],
+ "drop.degreesign": [
+  "Taupunkt",
+  "Luftfeuchtigkeit"
+ ],
+ "water.waves": [
+  "Wasser",
+  "Leck",
+  "Überschwemmung"
+ ],
+ "sprinkler": [
+  "Rasensprenger",
+  "Bewässerung",
+  "Garten"
+ ],
+ "sprinkler.and.droplets": [
+  "Rasensprenger",
+  "Bewässerung",
+  "Garten"
+ ],
+ "frying.pan": [
+  "Pfanne",
+  "Kochen"
+ ],
+ "cup.and.saucer": [
+  "Kaffee",
+  "Tasse"
+ ],
+ "trash.circle": [
+  "Müll",
+  "Mülltonne"
+ ],
+ "bed.double": [
+  "Bett",
+  "Schlafzimmer",
+  "Schlafen"
+ ],
+ "chair.lounge": [
+  "Liegestuhl",
+  "Terrasse"
+ ],
+ "washer.fill": [
+  "Waschmaschine"
+ ],
+ "laurel.leading": [
+  "Lorbeer",
+  "Pflanze"
+ ],
+ "camera.macro": [
+  "Blume",
+  "Pflanze",
+  "Makro"
+ ],
+ "carrot": [
+  "Karotte",
+  "Gemüse",
+  "Garten"
+ ],
+ "car.side": [
+  "Auto",
+  "Fahrzeug"
+ ],
+ "car.rear": [
+  "Auto",
+  "Fahrzeug"
+ ],
+ "scooter": [
+  "Roller",
+  "E-Scooter"
+ ],
+ "train.side.front.car": [
+  "Zug",
+  "Bahn"
+ ],
+ "parkingsign": [
+  "Parkplatz",
+  "Parken"
+ ],
+ "wifi.router": [
+  "Router",
+  "WLAN",
+  "Internet"
+ ],
+ "antenna.radiowaves.left.and.right": [
+  "Funk",
+  "Antenne",
+  "Signal"
+ ],
+ "server.rack": [
+  "Server",
+  "NAS"
+ ],
+ "externaldrive": [
+  "Festplatte",
+  "Laufwerk",
+  "NAS"
+ ],
+ "house.lodge": [
+  "Hütte",
+  "Ferienhaus"
+ ],
+ "building": [
+  "Gebäude"
+ ],
+ "stairs": [
+  "Treppe",
+  "Treppenhaus"
+ ],
+ "figure.and.child.holdinghands": [
+  "Familie",
+  "Kind"
+ ],
+ "sun.and.horizon": [
+  "Sonnenaufgang",
+  "Sonnenuntergang",
+  "Dämmerung"
+ ],
+ "moon.zzz": [
+  "Schlafen",
+  "Schlafmodus",
+  "Nachtruhe"
+ ],
+ "powersleep": [
+  "Schlafen",
+  "Schlafmodus"
+ ],
+ "speaker.slash": [
+  "Stumm"
+ ],
+ "speaker.wave.2": [
+  "Lautstärke"
+ ],
+ "figure.2.and.child.holdinghands": [
+  "Familie"
+ ],
+ "figure.child": [
+  "Baby"
+ ],
+ "bolt.house": [
+  "Hausverbrauch",
+  "Strom",
+  "Energie",
+  "Solar"
  ]
 }

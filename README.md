@@ -17,21 +17,31 @@ A Home Assistant integration that makes Apple's SF Symbols available as icons ev
 - **Variants**: append `#hierarchical` (`#h`) or `#multicolor` (`#m`), e.g. `sf:cloud.sun.fill#multicolor`.
   6,440 symbols have hierarchical layers, 2,749 have multicolor. Symbols without that variant stay monochrome.
   Cupertino's suffixes (`#color`, `#invert`, `#fullcolor`) draw monochrome, as before.
-- **Icon picker** with search: Apple's keywords and categories plus German terms (e.g. "Stehlampe", "Glühbirne").
-- **Two sizes of frame**: `ios:` uses a tight box like Cupertino (same look as before). `sf:` uses a shared square
-  frame, so all symbols have the same stroke weight and line up with MDI icons.
-- **Fast**: outlines are bundled in 256 gzip chunks (≈20 KB each), loaded on demand and cached for a year;
-  the URLs carry a version, so an update reaches every browser at once.
+- **Icon picker** with search: Apple's keywords and categories plus German smart-home terms (e.g. "Stehlampe",
+  "Rollladen", "Heizung", "Steckdose"). Multi-word searches work in natural order ("floor lamp" → `lamp.floor`).
+  Search terms are attached to `sf:` only, so a search shows each symbol once; the `ios:` list still contains
+  every Cupertino name (found by name).
+- **Two sizes of frame**: `ios:` uses a tight box like Cupertino (same look as before). Every `sf:` symbol gets
+  the same square frame (circle size / 0.85, like MDI's padding), so symbols share one scale and stroke weight
+  and line up with MDI icons. Symbols larger than that square (about a quarter, mostly wide ones such as text
+  formats, car or battery-stack symbols; also `lamp.floor` by 2 %) are scaled down into it.
+- **Fast**: outlines are bundled in 256 gzip chunks (≈20 KB each), loaded on demand and cached for a year
+  in the browser; the URLs carry a version, so an update reaches every browser at once.
+- **Only for logged-in users**: the loader module is public (browsers load it before login), the symbol data
+  (`index.json`, `m/`, `v/`) is only served with a Home Assistant login (401 otherwise). The module fetches it
+  with the logged-in user's token, also in the Companion app.
 
 ## Installation
 
 1. Copy `custom_components/sf_symbols` into your `config/custom_components` (Daniel: via Privat-Updates).
 2. Restart Home Assistant.
 3. **Settings → Devices & services → Add integration → SF Symbols**, confirm.
-4. Reload the browser tab.
+4. Reload the browser tab (if icons stay empty, reload a second time – the browser may still have the old page cached).
 
 If Cupertino Icons is still installed, a repair notice asks you to remove it. Until then SF Symbols keeps the
-`ios:` prefix (it knows every Cupertino name), so nothing breaks.
+`ios:` prefix (it knows every Cupertino name), so nothing breaks. **Variants** (`#hierarchical`, `#multicolor`)
+only work once Cupertino Icons is removed: Cupertino's own module still hooks into the icon rendering and draws
+those suffixes its own way.
 
 ## Use cases and examples
 
@@ -69,7 +79,11 @@ contact sheet for a visual check. Data update = run the script after a new SF Sy
 
 ## Troubleshooting
 
-- *Icons are empty*: reload the browser (the module is loaded at page start); check that the integration is set up.
+- *Icons are empty*: reload the browser (the module is loaded at page start), if needed twice because of the
+  browser cache; check that the integration is set up. The data needs a login: on the login page or with an
+  expired session icons stay empty until you are logged in.
+- *Unknown name*: the browser console shows `SF Symbols: unknown icon …` once per name.
+- *Variants stay monochrome*: remove Cupertino Icons (see Installation).
 - Diagnostics (integration page → ⋮ → Download diagnostics) shows the symbol set version, counts and the module URL.
 
 ## Removal

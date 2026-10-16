@@ -14,3 +14,5 @@ CUPERTINO_DOMAIN: Final = "cupertino"
 ISSUE_CUPERTINO: Final = "cupertino_installed"
 # ein Jahr; die URL ändert sich bei jedem neuen Symbolsatz bzw. Frontend-Stand
 CACHE_IMMUTABLE: Final = "public, max-age=31536000, immutable"
+# Symboldaten: nur der Browser des angemeldeten Nutzers speichert sie (keine geteilten Caches/Proxys)
+CACHE_IMMUTABLE_PRIVATE: Final = "private, max-age=31536000, immutable"

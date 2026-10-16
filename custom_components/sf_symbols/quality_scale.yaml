@@ -1,5 +1,7 @@
 # Integration Quality Scale, selbst geprüft (keine Core-Integration, die Stufe ist nicht offiziell).
-# Regeln: https://developers.home-assistant.io/docs/core/integration-quality-scale/rules
+# Regeln: https://developers.home-assistant.io/docs/core/integration-quality-scale/rules/
+# Einzelne Regel: https://developers.home-assistant.io/docs/core/integration-quality-scale/rules/<regel>/
+# (Stand der Regeln: hassfest 2026.10, inkl. docs-conditions/docs-triggers)
 # SF Symbols ist eine reine Frontend-Integration: keine Geräte, keine Entitäten, keine Verbindung nach außen.
 rules:
   # Bronze
@@ -23,9 +25,15 @@ rules:
   docs-actions:
     status: exempt
     comment: Keine eigenen Aktionen.
+  docs-conditions:
+    status: exempt
+    comment: Keine eigenen Bedingungen für Automationen.
   docs-high-level-description: done
   docs-installation-instructions: done
   docs-removal-instructions: done
+  docs-triggers:
+    status: exempt
+    comment: Keine eigenen Auslöser für Automationen.
   entity-event-setup:
     status: exempt
     comment: Keine Entitäten.
@@ -71,7 +79,7 @@ rules:
     comment: Keine Entitäten-Plattformen.
   reauthentication-flow:
     status: exempt
-    comment: Keine Anmeldung.
+    comment: Keine Anmeldung bei einem Dienst; die Symboldaten nutzen die bestehende HA-Anmeldung des Nutzers.
   test-coverage:
     status: done
     comment: 100 % Python; Frontend-Modul mit node --test gegen die echten Daten.
@@ -128,7 +136,7 @@ rules:
   # Platinum
   async-dependency:
     status: exempt
-    comment: Keine Bibliothek; Dateien werden im Executor gelesen.
+    comment: Keine Bibliothek; Dateien werden einmal im Executor gelesen, danach aus dem Speicher (Prüfung im Event-Loop).
   inject-websession:
     status: exempt
     comment: Keine HTTP-Anfragen nach außen.

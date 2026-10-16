@@ -3,11 +3,14 @@
     "step": {
       "user": {
         "title": "SF Symbols",
-        "description": "Adds Apple's SF Symbols as icon sets `sf:` (Apple names, e.g. `sf:lamp.floor`) and `ios:` (compatible with Cupertino Icons, e.g. `ios:lamp-floor`). There is nothing to configure."
+        "description": "Adds Apple's SF Symbols as icon sets `sf:` (Apple names, e.g. `sf:lamp.floor`) and `ios:` (compatible with Cupertino Icons, e.g. `ios:lamp-floor`). There is nothing to configure. Afterwards reload the browser (if needed twice, because of the browser cache)."
       }
     },
     "abort": {
       "single_instance_allowed": "Already configured. Only a single configuration possible."
+    },
+    "create_entry": {
+      "default": "SF Symbols is set up. Reload the browser so the icon sets `sf:` and `ios:` load – if icons stay empty, reload a second time (the browser may still have the old page cached)."
     }
   },
   "exceptions": {
