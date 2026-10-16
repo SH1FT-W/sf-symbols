@@ -33,7 +33,9 @@ META = json.loads((DATA_DIR / "meta.json").read_text(encoding="utf-8"))
 async def test_setup_registers_module(hass: HomeAssistant, frontend: UrlManager, setup: MockConfigEntry) -> None:
     url = module_url(setup.runtime_data)
     assert url in frontend.urls
-    assert url.startswith("/sf_symbols/1.1.0-") and url.endswith("/sf-symbols.js")
+    manifest = Path(__file__).parents[1] / "custom_components/sf_symbols/manifest.json"
+    version = json.loads(manifest.read_text())["version"]
+    assert url.startswith(f"/sf_symbols/{version}-") and url.endswith("/sf-symbols.js")
     assert setup.runtime_data.symbol_count == META["symbols"] > 9000
     assert setup.runtime_data.set_version == META["set_version"]
 

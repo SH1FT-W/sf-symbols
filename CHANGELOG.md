@@ -1,5 +1,10 @@
 # Changelog
 
+## 26.10.3 – 16.10.2026
+
+- **Neue Versionsnummer:** Ab jetzt zählt die Version nach **Jahr.Monat.Nummer des Releases im Monat**: `26.10.3` ist das dritte Release im Oktober 2026, im nächsten Monat geht es wieder bei `.1` los (z. B. `26.11.1`). Der Sprung von `1.1.0` auf `26.10.3` ist gewollt – Privat-Updates und Home Assistant erkennen `26.10.3` als neuer, das Update erscheint wie gewohnt.
+- Test prüft die Lade-URL gegen die Version aus `manifest.json` statt gegen eine feste Nummer (brach sonst bei jedem Release).
+
 ## 1.1.0 – 16.10.2026
 - Symboldaten (`index.json`, `m/`, `v/`) nur noch mit Home-Assistant-Anmeldung (sonst 401); öffentlich bleibt nur
   das Lade-Modul. Es holt die Daten mit dem Token des angemeldeten Nutzers (auch Companion-App), wartet auf der
@@ -14,6 +19,7 @@
   begrenzt, Server prüft den Speicher-Cache vor dem Executor.
 - Unbekannte Namen: eine Warnung je Name in der Browser-Konsole. Hinweis „Browser neu laden (ggf. zweimal)“ beim
   Einrichten; README: Varianten erst nach dem Entfernen von Cupertino; Quality Scale um `docs-conditions`/`docs-triggers`.
+
 
 ## 1.0.0 – 16.10.2026
 - Erste Fassung als Ersatz für Cupertino Icons 5.0.1: 9524 Symbole aus SF Symbols 27.0 (statt 6945), Präfixe
