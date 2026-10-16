@@ -78,11 +78,11 @@ test("hierarchisch und mehrfarbig", async () => {
   assert.equal(plain.path, (await api.getIcon("sf", "lamp.floor")).path);
 });
 
-test("layered: Weiß über CSS-Variable, Hauptfarbe = currentColor", () => {
+test("layered: Weiß = Textfarbe über CSS-Variable, Hauptfarbe = currentColor", () => {
   const r = layered("m", [["", 1, "M1 1z"], ["#ffffff", 1, "M2 2z"]], "");
   assert.equal(r.path, "M1 1z");
   assert.equal(r.secondaryPath, "M2 2z");
-  assert.equal(r.layers[1].fill, "var(--sf-symbols-white, #ffffff)");
+  assert.equal(r.layers[1].fill, "var(--sf-symbols-white, var(--primary-text-color))");
 });
 
 test("Picker-Liste: ios mit Bindestrich, Suchbegriffe inkl. Deutsch", async () => {

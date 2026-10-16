@@ -15,6 +15,15 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
   `mein-zuhause`/`-mobile`, Casora). Casora prüft per `getIconList()` auf `…-fill`/`…-inverse` – die `ios:`-Liste
   muss Cupertino-Schreibweise behalten. `ios:` bleibt im engen Rahmen (Casora skaliert `lamp-floor`/`lamp-table` 0.68).
 
+## Entscheidungen (Daniel, 16.10.2026)
+
+- Logo: Variante A „Kachel“ (Haus + Funkeln) ist endgültig; B/C bleiben nur als Entwürfe in `docs/logo-varianten/`.
+- Weiß in mehrfarbigen Symbolen = `var(--sf-symbols-white, var(--primary-text-color))`, nicht Apple-Weiß
+  (im hellen Design sonst unsichtbar). Wer Apple-Weiß will, setzt die Variable selbst.
+- Doppelte Einträge im Picker (`ios:` + `sf:`) bleiben bewusst: die `ios:`-Liste braucht Casora für die
+  `-fill`-Prüfung, HAs Picker zeigt jeden Satz.
+- `sf:`-Rahmen bleibt bewusst MDI-groß (Kreis-Symbol / 0.85), `ios:` eng wie Cupertino.
+
 ## Aufbau
 
 - `tools/build_icons.py` (uv-Skript) + `tools/render_symbols.swift`: macOS zeichnet jedes Symbol per SwiftUI

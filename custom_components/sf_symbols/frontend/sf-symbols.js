@@ -62,7 +62,8 @@ export function layered(variant, layers, mark = MARK[variant]) {
       else secondary += d;
     } else {
       const [color, opacity, d] = layer;
-      const fill = color === "#ffffff" ? "var(--sf-symbols-white, #ffffff)" : color;
+      // Apple-Weiß wäre im hellen Design unsichtbar → Textfarbe (Apple-Weiß: --sf-symbols-white: #fff setzen)
+      const fill = color === "#ffffff" ? "var(--sf-symbols-white, var(--primary-text-color))" : color;
       out.push({ d, opacity, fill });
       if (!color) primary += d;
       else secondary += d;

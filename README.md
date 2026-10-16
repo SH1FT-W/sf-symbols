@@ -46,7 +46,9 @@ icon: sf:cloud.sun.fill#multicolor
 icon: ios:lamp-floor
 ```
 
-White parts of multicolor symbols can be adapted with the CSS variable `--sf-symbols-white`.
+White parts of multicolor symbols (e.g. the cloud in `cloud.sun.fill`) use the text colour
+(`var(--primary-text-color)`), so they stay visible in light themes. For Apple's original white, set the CSS
+variable `--sf-symbols-white: #ffffff` (e.g. in your theme or via card-mod/UIX).
 
 ## How the data is made
 
