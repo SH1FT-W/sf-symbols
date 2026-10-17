@@ -33,7 +33,7 @@ A Home Assistant integration that makes Apple's SF Symbols available as icons ev
 
 ## Installation
 
-1. Copy `custom_components/sf_symbols` into your `config/custom_components` (Daniel: via Privat-Updates).
+1. Copy `custom_components/sf_symbols` into your `config/custom_components` (or via Privat-Updates).
 2. Restart Home Assistant.
 3. **Settings → Devices & services → Add integration → SF Symbols**, confirm.
 4. Reload the browser tab (if icons stay empty, reload a second time – the browser may still have the old page cached).
