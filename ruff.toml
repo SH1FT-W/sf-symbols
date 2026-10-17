@@ -1,7 +1,6 @@
 # Python-Lint wie im Frontend Biome: `uvx ruff check .` / `uvx ruff format --check .`
 line-length = 120
 # Vorlage aus mac-werkzeuge/vorlagen, bleibt dort byteidentisch und daher ungeprüft
-extend-exclude = ["tools/pruefe-uebersetzungen.py"]
 target-version = "py313"
 
 [lint]
