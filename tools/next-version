@@ -13,8 +13,12 @@
 # YY.M.k des laufenden Monats, ist N mindestens k (ein schon veröffentlichtes k
 # zählt ohnehin über die Releases mit).
 #
-# Standard in diesem Repo: Präfix "", Versionsdatei custom_components/sf_symbols/manifest.json
-# Aufruf:  next-version [--prefix P] [--file F] [--pre] [--tag] [--month YYYY-MM] [--no-fetch]
+# Gemeinsame Fassung für alle SH1FT-W-Repos (Quelle: mac-werkzeuge/vorlagen/next-version,
+# in jedem Repo als tools/next-version byteidentisch; Abgleich: mac-werkzeuge/vorlagen/abgleich.sh).
+# Versionsdatei ohne --file automatisch: custom_components/*/manifest.json, sonst
+# frontend/package.json bzw. package.json, sonst Info.plist (Apps nutzen Präfix "v" per --prefix).
+# Aufruf:  next-version [--prefix P] [--file F] [--app] [--pre] [--tag] [--month YYYY-MM] [--no-fetch]
+#   --app        HA-Add-on im Repo: Präfix "app-" und Versionsdatei addon/*/config.yaml
 #   --prefix P   Tag-Präfix (z. B. "v"); nur Releases, deren Tag mit diesem
 #                Präfix gefolgt von einer Ziffer beginnt, zählen
 #   --pre        Vorabversionen (Prereleases) mitzählen
@@ -24,11 +28,12 @@
 #   --month      anderen Monat rechnen (Test)
 #   --no-fetch   beim Rückfall auf Tags diese nicht vorher von origin holen
 set -euo pipefail
-prefix=""; vfile="custom_components/sf_symbols/manifest.json"; with_tag=0; pre=0; month=$(date +%Y-%m); fetch=1
+prefix=""; vfile="__auto__"; with_tag=0; pre=0; month=$(date +%Y-%m); fetch=1
 while [ $# -gt 0 ]; do
   case "$1" in
     --prefix) prefix="$2"; shift 2 ;;
     --file) vfile="$2"; shift 2 ;;
+    --app) prefix="app-"; vfile="$( { ls addon/*/config.yaml 2>/dev/null || true; } | head -1)"; shift ;;
     --pre) pre=1; shift ;;
     --tag) with_tag=1; shift ;;
     --month) month="$2"; shift 2 ;;
@@ -38,6 +43,11 @@ while [ $# -gt 0 ]; do
   esac
 done
 cd "$(git rev-parse --show-toplevel)"
+if [ "$vfile" = "__auto__" ]; then
+  vfile=$( { ls custom_components/*/manifest.json 2>/dev/null || true; } | head -1)
+  [ -n "$vfile" ] || vfile=$( { ls frontend/package.json package.json 2>/dev/null || true; } | head -1)
+  [ -n "$vfile" ] || vfile=$( { ls Info.plist 2>/dev/null || true; } | head -1)
+fi
 yy=${month:2:2}; m=$((10#${month:5:2}))
 maxn=0
 bump() { local k=${1##*.}; if [[ $k =~ ^[0-9]+$ ]] && (( 10#$k > maxn )); then maxn=$((10#$k)); fi; }
@@ -61,7 +71,10 @@ else
   while IFS= read -r t; do [ -n "$t" ] && bump "$t"; done < <(git tag -l "${prefix}${yy}.${m}.*")
 fi
 if [ -n "$vfile" ] && [ -f "$vfile" ]; then
-  cur=$(sed -n 's/^[[:space:]"]*version"\{0,1\}[[:space:]]*:[[:space:]]*["'\'']\{0,1\}\([0-9][0-9.]*\).*/\1/p' "$vfile" | head -1)
+  case "$vfile" in
+    *.plist) cur=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$vfile" 2>/dev/null || true) ;;
+    *) cur=$(sed -n 's/^[[:space:]"]*version"\{0,1\}[[:space:]]*:[[:space:]]*["'\'']\{0,1\}\([0-9][0-9.]*\).*/\1/p' "$vfile" | head -1) ;;
+  esac
   if [[ $cur == "${yy}.${m}."* ]]; then k=${cur##*.}; [[ $k =~ ^[0-9]+$ ]] && (( 10#$k - 1 > maxn )) && maxn=$((10#$k - 1)); fi
 fi
 n=$(( count > maxn ? count : maxn ))
