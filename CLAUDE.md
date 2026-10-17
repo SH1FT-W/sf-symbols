@@ -51,9 +51,18 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
 
 ## Prüfen
 
-- `~/Software/evenlight/.venv/bin/python -m pytest -q -p no:logging --cov=custom_components/sf_symbols`
+- Tests: `uv run --python 3.14 --with-requirements requirements_test.txt python -m pytest -q -p no:logging`
+  (`pytest.ini` setzt `pythonpath = .`, `pytest` direkt geht ebenso; Coverage mit `--with pytest-cov
+  … --cov=custom_components/sf_symbols`).
 - `node --test tests/js/*.test.mjs` (Frontend gegen die echten Daten, inkl. aller 6945 Cupertino-Namen)
-- `uvx ruff check . && uvx ruff format --check .`, `uvx mypy@2.3.1 --python-executable ~/Software/evenlight/.venv/bin/python`
+- `uvx ruff check . && uvx ruff format --check .`
+- Typen: einmal `uv venv --python 3.14 /tmp/venv-sf-symbols && uv pip install --python /tmp/venv-sf-symbols/bin/python
+  -r requirements_test.txt`, dann `uvx mypy@2.3.1 --python-executable /tmp/venv-sf-symbols/bin/python`.
+- Übersetzungen: `python3 tools/pruefe-uebersetzungen.py` (Vorlage aus mac-werkzeuge, byteidentisch, von ruff
+  ausgenommen).
+- CI: `.github/workflows/pruefung.yml` (Vorlage mac-werkzeuge/vorlagen/ci-ha-integration.yml, COV_MIN 98, gemessen
+  100) macht dasselbe plus Node-Tests und hassfest; montags zusätzlich gegen die neueste HA (darf rot sein).
+- `tools/next-version` ist die gemeinsame Fassung aus mac-werkzeuge/vorlagen (byteidentisch, Abgleich dort).
 - hassfest: `docker run --rm -v "$PWD/custom_components/sf_symbols:/github/workspace/custom_components/sf_symbols" ghcr.io/home-assistant/hassfest`
 - Live: Wegwerf-Container (16.10.: `sf-symbols-test` auf :8150, Onboarding per API, Token in `hassTokens`,
   Playwright aus `~/.npm/_npx`), danach löschen.
