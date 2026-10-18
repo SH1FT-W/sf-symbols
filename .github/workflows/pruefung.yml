@@ -1,6 +1,6 @@
 name: Prüfung
 
-# Vorlage aus mac-werkzeuge/vorlagen/ci-ha-integration.yml. Je Repo anpassen:
+# Vorlage aus repo-vorlagen/vorlagen/ci-ha-integration.yml. Je Repo anpassen:
 #   COV_MIN  (Abdeckungsgrenze, knapp unter dem Stand)
 #   Bluetooth-Repos: zusätzliche Pakete in requirements_test.txt
 # Lokal dasselbe: siehe CLAUDE.md des Repos.

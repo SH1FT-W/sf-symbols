@@ -58,11 +58,11 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
 - `uvx ruff check . && uvx ruff format --check .`
 - Typen: einmal `uv venv --python 3.14 /tmp/venv-sf-symbols && uv pip install --python /tmp/venv-sf-symbols/bin/python
   -r requirements_test.txt`, dann `uvx mypy@2.3.1 --python-executable /tmp/venv-sf-symbols/bin/python`.
-- Übersetzungen: `python3 tools/pruefe-uebersetzungen.py` (Vorlage aus mac-werkzeuge, byteidentisch, von ruff
+- Übersetzungen: `python3 tools/pruefe-uebersetzungen.py` (Vorlage aus repo-vorlagen, byteidentisch, von ruff
   ausgenommen).
-- CI: `.github/workflows/pruefung.yml` (Vorlage mac-werkzeuge/vorlagen/ci-ha-integration.yml, COV_MIN 98, gemessen
+- CI: `.github/workflows/pruefung.yml` (Vorlage repo-vorlagen/vorlagen/ci-ha-integration.yml, COV_MIN 98, gemessen
   100) macht dasselbe plus Node-Tests und hassfest; montags zusätzlich gegen die neueste HA (darf rot sein).
-- `tools/next-version` ist die gemeinsame Fassung aus mac-werkzeuge/vorlagen (byteidentisch, Abgleich dort).
+- `tools/next-version` ist die gemeinsame Fassung aus repo-vorlagen/vorlagen (byteidentisch, Abgleich dort).
 - hassfest: `docker run --rm -v "$PWD/custom_components/sf_symbols:/github/workspace/custom_components/sf_symbols" ghcr.io/home-assistant/hassfest`
 - Live: Wegwerf-Container (16.10.: `sf-symbols-test` auf :8150, Onboarding per API, Token in `hassTokens`,
   Playwright aus `~/.npm/_npx`), danach löschen.
