@@ -1,5 +1,12 @@
 # Changelog
 
+## 26.10.4 – 19.10.2026
+
+- Lade-Modul kommt aus dem Inhalt, der beim Start für die Versionsnummer in der URL gehasht wurde (kein zweites Lesen der Datei, URL und Inhalt passen immer zusammen, auch wenn die Datei vor einem Neustart ersetzt wird).
+- Unlesbare Symboldatei: 404 mit einer Warnung im Log statt eines Serverfehlers; der nächste Abruf versucht es erneut.
+- Browser-Konsole: eine Warnung, wenn die Symboldaten nicht erreichbar sind (offline, Token abgelehnt), statt still leerer Symbole.
+- Intern: CI-Prüfung aus der gemeinsamen Vorlage (Node-Tests, Übersetzungsprüfung, Frühwarnung gegen die neueste HA), Prüfabläufe ohne fremdes venv (`uv run`, `pythonpath` in `pytest.ini`), gemeinsame `tools/next-version` (nie Nummern überspringen), README-Installationshinweis neutral formuliert. Tests für die neuen Fehlerpfade.
+
 ## 26.10.3 – 16.10.2026
 
 - **Neue Versionsnummer:** Ab jetzt zählt die Version nach **Jahr.Monat.Nummer des Releases im Monat**: `26.10.3` ist das dritte Release im Oktober 2026, im nächsten Monat geht es wieder bei `.1` los (z. B. `26.11.1`). Der Sprung von `1.1.0` auf `26.10.3` ist gewollt – Privat-Updates und Home Assistant erkennen `26.10.3` als neuer, das Update erscheint wie gewohnt.

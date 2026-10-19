@@ -99,6 +99,7 @@ test("unbekannte Symbole: leeres Ergebnis, eine Warnung je Name", async () => {
 test("Daten nicht erreichbar (kein Login): leeres Ergebnis, kein Absturz, später neuer Versuch", async () => {
   let fail = true;
   const calls = [];
+  const seen = [];
   const local = createSFSymbols({
     base: "/x/",
     fetchJson: async (url) => {
@@ -106,12 +107,16 @@ test("Daten nicht erreichbar (kein Login): leeres Ergebnis, kein Absturz, späte
       if (fail) throw new Error(`${url}: 401`);
       return { house: [0, 0, 20, 20, "M0 0h1z"] };
     },
+    warn: (msg) => seen.push(msg),
   });
   assert.deepEqual(await local.getIcon("sf", "house"), {});
+  assert.deepEqual(await local.getIcon("sf", "house"), {});
+  // eine Warnung, nicht eine je Symbol
+  assert.deepEqual(seen, ["SF Symbols: icon data not reachable (/x/m/" + chunkOf("house") + ".json: 401)"]);
   await assert.rejects(local.getIconList("sf"));
   fail = false;
   assert.equal((await local.getIcon("sf", "house")).path, "M0 0h1z");
-  assert.equal(calls.length, 3);
+  assert.equal(calls.length, 4);
 });
 
 test("umbenannte Symbole lösen über Aliase auf", async () => {

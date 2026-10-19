@@ -220,3 +220,19 @@ def test_chunks_match_meta() -> None:
         total += sum(1 for v in chunk.values() if isinstance(v, list))
     assert total == META["symbols"]
     assert len(list((DATA_DIR / "v").glob("*.json.gz"))) == META["chunks"]
+
+
+def test_module_matches_hashed_source_and_unreadable_chunk(tmp_path: Path) -> None:
+    """Das Modul kommt aus dem beim Laden gehashten Inhalt (Datei später geändert → URL passt trotzdem);
+    eine unlesbare Datendatei gibt None (404) mit Warnung statt eines Serverfehlers."""
+    js = tmp_path / "a.js"
+    js.write_text("const CONFIG = /*__SF_CONFIG__*/{};", encoding="utf-8")
+    (tmp_path / "meta.json").write_text('{"symbols": 3}', encoding="utf-8")
+    (tmp_path / "m").mkdir()
+    (tmp_path / "m" / "00.json.gz").mkdir()  # Verzeichnis statt Datei: read_bytes scheitert
+    data = load_symbol_data(tmp_path, js, "1")
+    js.write_text("geändert", encoding="utf-8")
+    assert data.load(MODULE_FILE).startswith(b'const CONFIG = {"frame": 24')
+    with patch("custom_components.sf_symbols.symbols._LOGGER") as logger:
+        assert data.data_file("m/00.json") is None
+    assert logger.warning.call_args.args[1] == "00.json.gz"

@@ -175,7 +175,12 @@ export function createSFSymbols({ base, fetchJson, warn = () => {} }) {
     try {
       found = await outline(name);
     } catch (err) {
-      return {}; // data not reachable (no login, offline): draw nothing, try again next time
+      // data not reachable (offline, token rejected): draw nothing, try again next time, say so once
+      if (!warned.has("fetch")) {
+        warned.add("fetch");
+        warn(`SF Symbols: icon data not reachable (${err?.message || err})`);
+      }
+      return {};
     }
     if (!found) {
       if (!warned.has(`${prefix}:${name}`)) {
