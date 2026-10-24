@@ -1,8 +1,7 @@
 # SF Symbols for Home Assistant
 
-> **Private repository.** SF Symbols are the property of Apple Inc. and are licensed only for use in apps on
-> Apple platforms; they must not be redistributed. The icon data in this repository is generated locally from the
-> installed SF Symbols app (`tools/build_icons.py`) and must never be published. Keep this repository private.
+[![HACS](https://img.shields.io/badge/HACS-custom-3D8BFF?style=flat-square&labelColor=111111)](https://hacs.xyz)
+[![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square&labelColor=111111)](LICENSE)
 
 A Home Assistant integration that makes Apple's SF Symbols available as icons everywhere in the UI:
 
@@ -33,8 +32,19 @@ A Home Assistant integration that makes Apple's SF Symbols available as icons ev
 
 ## Installation
 
-1. Copy `custom_components/sf_symbols` into your `config/custom_components` (or via Privat-Updates).
+### HACS (custom repository)
+
+1. In HACS open the three-dot menu, choose **Custom repositories** and add
+   `https://github.com/SH1FT-W/sf-symbols` with type **Integration**.
+2. Install **SF Symbols** and restart Home Assistant.
+
+### Manual
+
+1. Copy `custom_components/sf_symbols` into your `config/custom_components`.
 2. Restart Home Assistant.
+
+### Set up
+
 3. **Settings → Devices & services → Add integration → SF Symbols**, confirm.
 4. Reload the browser tab (if icons stay empty, reload a second time – the browser may still have the old page cached).
 
@@ -90,3 +100,13 @@ contact sheet for a visual check. Data update = run the script after a new SF Sy
 
 Delete the integration under **Settings → Devices & services**, then remove `custom_components/sf_symbols` and
 restart. Icons using `sf:`/`ios:` will be empty afterwards.
+
+## License and legal
+
+The code (integration, frontend module, tools) is licensed under the [MIT License](LICENSE).
+
+The symbol data in `custom_components/sf_symbols/data/` is generated from Apple's SF Symbols app
+(`tools/build_icons.py`). SF Symbols are the property of Apple Inc. and are subject to
+[Apple's license terms](https://developer.apple.com/sf-symbols/); they are not covered by the MIT License.
+Apple's brand symbols (Apple logo, product marks) are not included. This project is not affiliated with
+or endorsed by Apple Inc.

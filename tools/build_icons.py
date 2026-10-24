@@ -4,9 +4,8 @@
 # ///
 """Build the SF Symbols icon data from the locally installed SF Symbols app.
 
-SF Symbols are Apple's property and licensed only for use in apps on Apple platforms. This
-script reads the app and macOS on *this* Mac and writes the data into the private integration;
-the output must never be published.
+SF Symbols are Apple's property and subject to Apple's license terms (see LICENSE). This
+script reads the app and macOS on *this* Mac and writes the data into the integration.
 
 How it works:
 1. Names, aliases, search terms and categories come from the app's metadata plists

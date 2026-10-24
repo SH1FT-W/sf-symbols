@@ -1,5 +1,5 @@
 {
- "_comment": "Alle ios:-Namen, die Daniels Setup am 16.10.2026 nutzt (Prod-Entit\u00e4ten-Symbole, Dashboards mein-zuhause/-mobile, Casora). Jeder muss aufl\u00f6sen.",
+ "_comment": "Alle ios:-Namen aus einem echten Setup (Stand 16.10.2026: Entit\u00e4ten-Symbole, Dashboards, Casora). Jeder muss aufl\u00f6sen.",
  "prod_entities": [
   "ios:air-purifier",
   "ios:airplane",

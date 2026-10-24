@@ -1,5 +1,10 @@
 # Changelog
 
+## 26.10.5 – 24.10.2026
+
+- Repo öffentlich: Code unter MIT-Lizenz, Symboldaten bleiben Apples Eigentum (Hinweis in LICENSE und README). README mit HACS-Installation (benutzerdefiniertes Repository) und Lizenzabschnitt, Privat-Hinweise entfernt.
+- Intern: `docs/ha-annahmen.md` (worauf das Modul bei Home Assistant baut), Projektregeln angepasst, Testdaten-Kommentar neutral.
+
 ## 26.10.4 – 19.10.2026
 
 - Lade-Modul kommt aus dem Inhalt, der beim Start für die Versionsnummer in der URL gehasht wurde (kein zweites Lesen der Datei, URL und Inhalt passen immer zusammen, auch wenn die Datei vor einem Neustart ersetzt wird).

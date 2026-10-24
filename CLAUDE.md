@@ -1,26 +1,27 @@
 # SF Symbols – Projektregeln
 
-Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), ersetzt „HomeAssistant Cupertino Icons“
+Öffentliche HA-Integration (SH1FT-W/sf-symbols, seit 24.10.2026; vorher privat) (`custom_components/sf_symbols`, Domain `sf_symbols`), ersetzt „HomeAssistant Cupertino Icons“
 (`cupertino`, v5.0.1). Symbolsätze `sf:` (Apple-Namen) und `ios:` (Cupertino-Schreibweise `.`→`-`).
 
 ## Regeln
 
-- **Repo bleibt privat.** SF Symbols gehören Apple, Lizenz nur für Apps auf Apple-Plattformen, keine Weitergabe.
-  Die Daten unter `custom_components/sf_symbols/data/` nie veröffentlichen (kein öffentliches Repo, kein HACS-Default,
-  keine Bilder davon in öffentlichen Issues). Logo ohne Apple-Logo/-Symbole (eigene Zeichnung).
-- Lokal committen ok. **Push / GitHub-Repo anlegen nur nach Rückfrage.**
-- Prod-HA (192.168.10.30) nur auf Daniels ausdrücklichen Wunsch; Updates laufen über Privat-Updates
-  (`~/Software/privat-updates`), nie selbst nach Prod kopieren, kein Neustart ohne Rückfrage.
+- **Lizenz:** Code MIT (SH1FT-W), Symboldaten unter `custom_components/sf_symbols/data/` gehören Apple und stehen
+  nicht unter MIT (Hinweis in LICENSE und README, so wie Cupertino Icons es handhabt). Apples Marken-Symbole
+  (Apple-Logo, Produktmarken) nie aufnehmen; Logo ohne Apple-Logo/-Symbole (eigene Zeichnung). Kein HACS-Default.
+- Lokal committen ok. **Push nur nach Rückfrage.** Release-Notizen auf GitHub englisch, README englisch.
+- Nichts Persönliches ins Repo (keine Heim-IPs, Entitätslisten nur anonymisiert in `tests/data/`).
+- Prod-HA nur auf ausdrücklichen Wunsch; Updates laufen über Privat-Updates (`~/Software/privat-updates`),
+  nie selbst nach Prod kopieren, kein Neustart ohne Rückfrage.
 - Versionen = Kalender-Schema `YY.M.N` (Jahr, Monat ohne Null, N = laufendes Release im Monat ab 1; ab 26.10.x,
   kein X.Y.Z mehr): jede Änderung = neue Version in `manifest.json` + CHANGELOG, `tools/next-version` rechnet sie aus
   (zählt nur echte, veröffentlichte GitHub-Releases des Monats, auch alte X.Y.Z, bloße Tags nicht; ohne Release im Monat → .1; jedes Release als GitHub-Release veröffentlichen). Tag/Release-Titel = genau diese Nummer ohne „v“.
 - Deutsche Suchbegriffe (`tools/keywords_de.json`) greifen nur über Namensteile/-anfänge, nicht über Apples
   englische Keywords (zu ungenau). HAs Picker macht aus Leerzeichen „-“ → Suchbegriffe mit „-“ speichern.
 - Kompatibilität: alle `ios:`-Namen aus `tests/data/` müssen auflösen (Prod-Entitäten, Dashboards
-  `mein-zuhause`/`-mobile`, Casora). Casora prüft per `getIconList()` auf `…-fill`/`…-inverse` – die `ios:`-Liste
+  Casora). Casora prüft per `getIconList()` auf `…-fill`/`…-inverse` – die `ios:`-Liste
   muss Cupertino-Schreibweise behalten. `ios:` bleibt im engen Rahmen (Casora skaliert `lamp-floor`/`lamp-table` 0.68).
 
-## Entscheidungen (Daniel, 16.10.2026)
+## Entscheidungen (16.10.2026)
 
 - Logo: Variante A „Kachel“ (Haus + Funkeln) ist endgültig; B/C bleiben nur als Entwürfe in `docs/logo-varianten/`.
 - Weiß in mehrfarbigen Symbolen = `var(--sf-symbols-white, var(--primary-text-color))`, nicht Apple-Weiß
@@ -63,6 +64,7 @@ Private HA-Integration (`custom_components/sf_symbols`, Domain `sf_symbols`), er
 - CI: `.github/workflows/pruefung.yml` (Vorlage repo-vorlagen/vorlagen/ci-ha-integration.yml, COV_MIN 98, gemessen
   100) macht dasselbe plus Node-Tests und hassfest; montags zusätzlich gegen die neueste HA (darf rot sein).
 - `tools/next-version` ist die gemeinsame Fassung aus repo-vorlagen/vorlagen (byteidentisch, Abgleich dort).
+- HA-Annahmen: `docs/ha-annahmen.md` (Frontend-Interna, auf die das Modul baut) bei jeder Codeänderung mitpflegen.
 - hassfest: `docker run --rm -v "$PWD/custom_components/sf_symbols:/github/workspace/custom_components/sf_symbols" ghcr.io/home-assistant/hassfest`
 - Live: Wegwerf-Container (16.10.: `sf-symbols-test` auf :8150, Onboarding per API, Token in `hassTokens`,
   Playwright aus `~/.npm/_npx`), danach löschen.
