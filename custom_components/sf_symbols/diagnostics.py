@@ -1,4 +1,4 @@
-"""Diagnose: Symbolsatz, Anzahl, Varianten, Modul-URL, Konflikt mit Cupertino (keine persönlichen Daten)."""
+"""Diagnostics: symbol set, counts, variants, module URLs, panel, conflict with Cupertino (no personal data)."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ from typing import Any
 from homeassistant.core import HomeAssistant
 
 from . import SFSymbolsConfigEntry, cupertino_present, module_url
+from .const import CONF_SHOW_PANEL, DEFAULT_SHOW_PANEL
 
 
 async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: SFSymbolsConfigEntry) -> dict[str, Any]:
@@ -24,4 +25,5 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: SFSymbo
         "data_hash": meta.get("hash"),
         "module_url": module_url(data),
         "cupertino_installed": cupertino_present(hass),
+        "show_panel": entry.options.get(CONF_SHOW_PANEL, DEFAULT_SHOW_PANEL),
     }

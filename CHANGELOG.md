@@ -1,5 +1,12 @@
 # Changelog
 
+## 26.11.1 – 02.11.2026
+
+- **Symbol-Browser** in der Seitenleiste („SF Symbols“, nur für Administratoren): Suche über alle Symbole (Apples englische Begriffe und die deutschen Suchwörter, Mehrwort in beliebiger Reihenfolge, auch `sf:…`/`ios:…` einfügbar), Umschalter `sf:`/`ios:` und einfarbig/hierarchisch/mehrfarbig (zeigt dann nur Symbole mit dieser Variante), Klick kopiert den Namen samt Variante (z. B. `sf:cloud.sun.fill#multicolor`) mit kurzer Bestätigung. Hell/dunkel nach dem HA-Design, Handy-tauglich (Menüknopf), Oberfläche deutsch/englisch nach Nutzersprache. Nur sichtbare Zeilen werden gezeichnet (über 8000 Symbole), solange der Browser offen ist, bleiben alle Datenstücke (Umrisse und Ebenen) im Speicher, damit beim Scrollen nichts doppelt geladen wird; danach gilt wieder das normale Limit, die Daten kommen aus den Symboldateien der Integration.
+- Option „Symbol-Browser in der Seitenleiste anzeigen“ (Integration → Konfigurieren), Standard an; Ausschalten nimmt den Eintrag sofort aus der Seitenleiste, die Symbole bleiben. Ist der Pfad `/sf-symbols` schon belegt (z. B. ein Dashboard), bleibt der Browser weg (Warnung im Log), die Symbole laden trotzdem.
+- Neue Datendatei `variants.json` (nur mit Anmeldung): welche Symbole hierarchisch/mehrfarbig können, beim ersten Abruf aus den Ebenen-Stücken gebildet. Die Versionskennung in den URLs umfasst jetzt beide Frontend-Module. Diagnose zeigt, ob das Panel an ist.
+- Intern: Kommentare der geänderten Dateien englisch, `docs/ha-annahmen.md` um Panel-Registrierung, Options-Neuladen, Panel-Properties, Menü-Event und `ha-icon` ergänzt, Tests für Panel, Option, `variants.json` und die Browser-Logik (Suche, virtuelles Raster, Kopieren).
+
 ## 26.10.5 – 24.10.2026
 
 - Repo öffentlich: Code unter MIT-Lizenz, Symboldaten bleiben Apples Eigentum (Hinweis in LICENSE und README). README mit HACS-Installation (benutzerdefiniertes Repository) und Lizenzabschnitt, Privat-Hinweise entfernt.

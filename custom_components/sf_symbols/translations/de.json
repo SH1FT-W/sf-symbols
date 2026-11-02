@@ -23,5 +23,19 @@
       "title": "Cupertino Icons ist noch installiert",
       "description": "Cupertino Icons und SF Symbols stellen beide den Symbolsatz `ios:` bereit. SF Symbols übernimmt `ios:` und kennt alle Cupertino-Namen, Cupertino Icons wird also nicht mehr gebraucht.\n\nEntferne die Integration Cupertino Icons (und, falls über HACS installiert, das Repository) und starte Home Assistant neu. Danach verschwindet dieser Hinweis."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "SF Symbols",
+        "description": "Der Symbol-Browser in der Seitenleiste zeigt alle Symbole mit Suche; ein Klick kopiert den Symbolnamen (z. B. `sf:house.fill`). Nur Administratoren sehen ihn.",
+        "data": {
+          "show_panel": "Symbol-Browser in der Seitenleiste anzeigen"
+        },
+        "data_description": {
+          "show_panel": "Ausschalten entfernt den Eintrag SF Symbols aus der Seitenleiste. Die Symbole funktionieren weiter."
+        }
+      }
+    }
   }
 }

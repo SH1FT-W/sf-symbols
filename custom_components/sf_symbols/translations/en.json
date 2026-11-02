@@ -23,5 +23,19 @@
       "title": "Cupertino Icons is still installed",
       "description": "Cupertino Icons and SF Symbols both provide the icon set `ios:`. SF Symbols takes over `ios:` and resolves every Cupertino name, so Cupertino Icons is no longer needed.\n\nRemove the Cupertino Icons integration (and, if installed through HACS, the repository) and restart Home Assistant. This message disappears afterwards."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "SF Symbols",
+        "description": "The symbol browser in the sidebar lists every symbol with search; a click copies the icon name (e.g. `sf:house.fill`). Only administrators see it.",
+        "data": {
+          "show_panel": "Show symbol browser in the sidebar"
+        },
+        "data_description": {
+          "show_panel": "Turn off to remove the SF Symbols entry from the sidebar. Icons keep working."
+        }
+      }
+    }
   }
 }

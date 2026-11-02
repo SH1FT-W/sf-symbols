@@ -1,4 +1,4 @@
-"""Einrichtung, Auslieferung von Modul und Daten, Konflikt mit Cupertino, Diagnose, Entfernen."""
+"""Setup, serving modules and data, symbol browser panel, conflict with Cupertino, diagnostics, removal."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from aiohttp.test_utils import make_mocked_request
-from homeassistant.components.frontend import UrlManager
+from homeassistant.components.frontend import DATA_PANELS, UrlManager, async_register_built_in_panel
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_STARTED
 from homeassistant.core import CoreState, HomeAssistant
@@ -16,16 +16,25 @@ from homeassistant.helpers import issue_registry as ir
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from pytest_homeassistant_custom_component.typing import ClientSessionGenerator
 
-from custom_components.sf_symbols import SFSymbolsDataView, module_url
+from custom_components.sf_symbols import SFSymbolsDataView, module_url, panel_url
 from custom_components.sf_symbols.const import (
     CACHE_IMMUTABLE,
     CACHE_IMMUTABLE_PRIVATE,
+    CONF_SHOW_PANEL,
     DATA_DIR,
     DOMAIN,
     ISSUE_CUPERTINO,
+    PANEL_ELEMENT,
+    PANEL_URL_PATH,
 )
 from custom_components.sf_symbols.diagnostics import async_get_config_entry_diagnostics
-from custom_components.sf_symbols.symbols import MODULE_FILE, SymbolDataError, load_symbol_data
+from custom_components.sf_symbols.symbols import (
+    MODULE_FILE,
+    PANEL_FILE,
+    SymbolDataError,
+    build_variants,
+    load_symbol_data,
+)
 
 META = json.loads((DATA_DIR / "meta.json").read_text(encoding="utf-8"))
 
@@ -63,28 +72,30 @@ async def test_data_served_gzip(
     assert resp.status == 200
     assert resp.headers["Content-Encoding"] == "gzip"
     assert resp.headers["Cache-Control"] == CACHE_IMMUTABLE_PRIVATE
-    assert isinstance(await resp.json(), dict)  # aiohttp entpackt selbst
+    assert isinstance(await resp.json(), dict)  # aiohttp decompresses by itself
     resp = await client.get(f"{base}/index.json")
     index = await resp.json()
     assert len(index) == META["listed"]
     assert (await client.get(module_url(setup.runtime_data))).status == 200
-    # zweiter Abruf kommt aus dem Speicher-Cache, ohne Dateizugriff und ohne Executor
+    assert (await client.get(panel_url(setup.runtime_data))).status == 200
+    # second request comes from the memory cache, without file access and without the executor
     with (
         patch.object(Path, "read_bytes", side_effect=AssertionError("not cached")),
         patch.object(hass, "async_add_executor_job", side_effect=AssertionError("executor used")),
     ):
         assert (await client.get(f"{base}/index.json")).status == 200
         assert (await client.get(module_url(setup.runtime_data))).status == 200
+        assert (await client.get(panel_url(setup.runtime_data))).status == 200
 
 
 async def test_data_needs_login(
     hass: HomeAssistant, setup: MockConfigEntry, hass_client_no_auth: ClientSessionGenerator
 ) -> None:
-    """Ohne Anmeldung: Modul ja (enthält keine Symbole), Daten nein (401)."""
+    """Without login: modules yes (they contain no symbols), data no (401)."""
     client = await hass_client_no_auth()
     v = setup.runtime_data.version
     assert (await client.get(module_url(setup.runtime_data))).status == 200
-    for path in ("index.json", "m/00.json", "v/1f.json", "m/zz.json"):
+    for path in ("index.json", "variants.json", "m/00.json", "v/1f.json", "m/zz.json"):
         resp = await client.get(f"/sf_symbols/{v}/{path}")
         assert resp.status == 401, path
     resp = await client.get(f"/sf_symbols/{v}/index.json", headers={"Authorization": "Bearer falsch"})
@@ -112,13 +123,14 @@ async def test_bad_paths_404(hass: HomeAssistant, setup: MockConfigEntry, hass_c
     for path in ("meta.json", "m/zz.json", "m/00.json.gz", "../manifest.json", "m/../../__init__.py", "x/00.json"):
         resp = await client.get(f"/sf_symbols/{v}/{path}")
         assert resp.status == 404, path
-    # gültiger Name, aber Datei fehlt
+    # valid name, but the file is missing
     with patch.object(setup.runtime_data, "load", return_value=None):
         assert (await client.get(f"/sf_symbols/{v}/m/ff.json")).status == 404
-    # das Modul gibt es nur über die öffentliche Route, nie als „Daten“
+    # the modules are only served through the public route, never as "data"
     view = SFSymbolsDataView(hass)
-    resp = await view.get(make_mocked_request("GET", "/"), v, MODULE_FILE)
-    assert resp.status == 404
+    for file in (MODULE_FILE, PANEL_FILE):
+        resp = await view.get(make_mocked_request("GET", "/"), v, file)
+        assert resp.status == 404, file
 
 
 async def test_unload_removes_everything(
@@ -152,6 +164,16 @@ async def test_missing_data_is_translated_error(hass: HomeAssistant, frontend: U
 def test_load_symbol_data_checks(tmp_path: Path) -> None:
     js = tmp_path / "a.js"
     js.write_text("x", encoding="utf-8")
+    (tmp_path / "meta.json").write_text('{"symbols": 3}', encoding="utf-8")
+    (tmp_path / "m").mkdir()
+    try:
+        load_symbol_data(tmp_path, js, "1")  # panel module missing: incomplete install
+    except SymbolDataError:
+        pass
+    else:  # pragma: no cover
+        raise AssertionError("missing panel module accepted")
+    (tmp_path / PANEL_FILE).write_text("p", encoding="utf-8")
+    (tmp_path / "m").rmdir()
     (tmp_path / "meta.json").write_text("{nope", encoding="utf-8")
     try:
         load_symbol_data(tmp_path, js, "1")
@@ -161,7 +183,7 @@ def test_load_symbol_data_checks(tmp_path: Path) -> None:
         raise AssertionError("broken meta accepted")
     (tmp_path / "meta.json").write_text('{"symbols": 3}', encoding="utf-8")
     try:
-        load_symbol_data(tmp_path, js, "1")  # m/ fehlt
+        load_symbol_data(tmp_path, js, "1")  # m/ missing
     except SymbolDataError:
         pass
     else:  # pragma: no cover
@@ -169,8 +191,8 @@ def test_load_symbol_data_checks(tmp_path: Path) -> None:
     (tmp_path / "m").mkdir()
     data = load_symbol_data(tmp_path, js, "1")
     assert data.version.startswith("1-x-")
-    assert data.data_file("m/00.json") is None  # Datei fehlt
-    assert data.data_file("meta.json") is None  # kein Datenpfad
+    assert data.data_file("m/00.json") is None  # file missing
+    assert data.data_file("meta.json") is None  # not a data path
     assert data.set_version == "?"
 
 
@@ -193,11 +215,11 @@ async def test_conflict_rechecked_after_start(hass: HomeAssistant, frontend: Url
     entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(entry.entry_id)
     assert ir.async_get(hass).async_get_issue(DOMAIN, ISSUE_CUPERTINO) is None
-    hass.config.components.add("cupertino")  # lädt nach uns
+    hass.config.components.add("cupertino")  # loads after us
     hass.bus.async_fire(EVENT_HOMEASSISTANT_STARTED)
     await hass.async_block_till_done()
     assert ir.async_get(hass).async_get_issue(DOMAIN, ISSUE_CUPERTINO) is not None
-    # wieder weg → Hinweis verschwindet beim nächsten Laden
+    # gone again → the notice disappears on the next load
     hass.config.components.remove("cupertino")
     assert await hass.config_entries.async_reload(entry.entry_id)
     assert ir.async_get(hass).async_get_issue(DOMAIN, ISSUE_CUPERTINO) is None
@@ -213,7 +235,7 @@ async def test_diagnostics(hass: HomeAssistant, setup: MockConfigEntry) -> None:
 
 
 def test_chunks_match_meta() -> None:
-    """Jedes Stück ist gültiges gzip-JSON, die Summe passt zu meta.json."""
+    """Every chunk is valid gzip JSON, the sum matches meta.json."""
     total = 0
     for file in sorted((DATA_DIR / "m").glob("*.json.gz")):
         chunk = json.loads(gzip.decompress(file.read_bytes()))
@@ -223,16 +245,112 @@ def test_chunks_match_meta() -> None:
 
 
 def test_module_matches_hashed_source_and_unreadable_chunk(tmp_path: Path) -> None:
-    """Das Modul kommt aus dem beim Laden gehashten Inhalt (Datei später geändert → URL passt trotzdem);
-    eine unlesbare Datendatei gibt None (404) mit Warnung statt eines Serverfehlers."""
+    """The module comes from the content hashed at load time (file changed later → URL still matches);
+    an unreadable data file gives None (404) with a warning instead of a server error."""
     js = tmp_path / "a.js"
     js.write_text("const CONFIG = /*__SF_CONFIG__*/{};", encoding="utf-8")
+    (tmp_path / PANEL_FILE).write_text("panel", encoding="utf-8")
     (tmp_path / "meta.json").write_text('{"symbols": 3}', encoding="utf-8")
     (tmp_path / "m").mkdir()
-    (tmp_path / "m" / "00.json.gz").mkdir()  # Verzeichnis statt Datei: read_bytes scheitert
+    (tmp_path / "m" / "00.json.gz").mkdir()  # directory instead of a file: read_bytes fails
     data = load_symbol_data(tmp_path, js, "1")
-    js.write_text("geändert", encoding="utf-8")
+    js.write_text("changed", encoding="utf-8")
+    (tmp_path / PANEL_FILE).write_text("changed", encoding="utf-8")
     assert data.load(MODULE_FILE).startswith(b'const CONFIG = {"frame": 24')
+    assert data.load(PANEL_FILE) == b"panel"
     with patch("custom_components.sf_symbols.symbols._LOGGER") as logger:
         assert data.data_file("m/00.json") is None
     assert logger.warning.call_args.args[1] == "00.json.gz"
+
+
+async def test_panel_registered_for_admins(
+    hass: HomeAssistant, setup: MockConfigEntry, hass_client_no_auth: ClientSessionGenerator
+) -> None:
+    """Symbol browser in the sidebar: admins only, panel module public and versioned like the loader."""
+    panel = hass.data[DATA_PANELS][PANEL_URL_PATH]
+    assert panel.component_name == "custom"
+    assert panel.require_admin is True
+    assert panel.sidebar_title == "SF Symbols"
+    custom = panel.config["_panel_custom"]
+    assert custom["name"] == PANEL_ELEMENT
+    assert custom["module_url"] == panel_url(setup.runtime_data)
+    assert custom["embed_iframe"] is False
+    # same version directory as the loader: its relative import "./sf-symbols.js" hits the same URL
+    assert panel_url(setup.runtime_data).rsplit("/", 1)[0] == module_url(setup.runtime_data).rsplit("/", 1)[0]
+    url = panel_url(setup.runtime_data)
+    client = await hass_client_no_auth()
+    resp = await client.get(url)
+    assert resp.status == 200
+    assert resp.content_type == "text/javascript"
+    assert resp.headers["Cache-Control"] == CACHE_IMMUTABLE
+    body = await resp.text()
+    assert 'customElements.define("sf-symbols-panel"' in body
+    assert 'import "./sf-symbols.js"' in body
+    # unload removes the sidebar entry
+    assert await hass.config_entries.async_unload(setup.entry_id)
+    assert PANEL_URL_PATH not in hass.data[DATA_PANELS]
+    assert (await client.get(url)).status == 404
+
+
+async def test_panel_can_be_turned_off(hass: HomeAssistant, frontend: UrlManager) -> None:
+    entry = MockConfigEntry(domain=DOMAIN, title="SF Symbols", data={}, options={CONF_SHOW_PANEL: False})
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    assert PANEL_URL_PATH not in hass.data.get(DATA_PANELS, {})
+    # icons keep working without the panel
+    assert module_url(entry.runtime_data) in frontend.urls
+    diag = await async_get_config_entry_diagnostics(hass, entry)
+    assert diag["show_panel"] is False
+    assert await hass.config_entries.async_unload(entry.entry_id)
+
+
+async def test_variants_served(
+    hass: HomeAssistant, setup: MockConfigEntry, hass_client: ClientSessionGenerator
+) -> None:
+    """variants.json: names with a hierarchical/multicolor variant, built from v/ once, then from memory."""
+    client = await hass_client()
+    resp = await client.get(f"/sf_symbols/{setup.runtime_data.version}/variants.json")
+    assert resp.status == 200
+    assert resp.headers["Content-Encoding"] == "gzip"
+    assert resp.headers["Cache-Control"] == CACHE_IMMUTABLE_PRIVATE
+    variants = await resp.json()
+    assert set(variants) == {"h", "m"}
+    assert "cloud.sun.fill" in variants["h"] and "cloud.sun.fill" in variants["m"]
+    assert "lamp.floor" not in variants["m"]
+    assert len(variants["h"]) >= META["hierarchical"] and len(variants["m"]) >= META["multicolor"]
+    assert variants["m"] == sorted(variants["m"])
+    with patch.object(Path, "read_bytes", side_effect=AssertionError("not cached")):
+        assert (await client.get(f"/sf_symbols/{setup.runtime_data.version}/variants.json")).status == 200
+
+
+def test_variants_from_chunks(tmp_path: Path) -> None:
+    (tmp_path / "v").mkdir()
+    chunk = {"b.fill": {"h": [], "m": []}, "a": {"h": []}}
+    (tmp_path / "v" / "00.json.gz").write_bytes(gzip.compress(json.dumps(chunk).encode()))
+    assert build_variants(tmp_path) == {"h": ["a", "b.fill"], "m": ["b.fill"]}
+    # damaged chunk: 404 with a warning, no server error
+    js = tmp_path / "a.js"
+    js.write_text("x", encoding="utf-8")
+    (tmp_path / PANEL_FILE).write_text("p", encoding="utf-8")
+    (tmp_path / "meta.json").write_text('{"symbols": 1}', encoding="utf-8")
+    (tmp_path / "m").mkdir()
+    (tmp_path / "v" / "01.json.gz").write_bytes(b"not gzip")
+    data = load_symbol_data(tmp_path, js, "1")
+    with patch("custom_components.sf_symbols.symbols._LOGGER") as logger:
+        assert data.data_file("variants.json") is None
+    assert logger.warning.called
+
+
+async def test_panel_path_taken_keeps_icons(hass: HomeAssistant, frontend: UrlManager) -> None:
+    """A dashboard already uses /sf-symbols: icons still load, the browser is skipped, the dashboard stays."""
+    async_register_built_in_panel(hass, "lovelace", frontend_url_path=PANEL_URL_PATH)
+    entry = MockConfigEntry(domain=DOMAIN, title="SF Symbols", data={})
+    entry.add_to_hass(hass)
+    with patch("custom_components.sf_symbols._LOGGER") as logger:
+        assert await hass.config_entries.async_setup(entry.entry_id)
+    assert entry.state is ConfigEntryState.LOADED
+    assert module_url(entry.runtime_data) in frontend.urls
+    assert hass.data[DATA_PANELS][PANEL_URL_PATH].component_name == "lovelace"
+    assert "already in use" in logger.warning.call_args.args[0]
+    assert await hass.config_entries.async_unload(entry.entry_id)
+    assert hass.data[DATA_PANELS][PANEL_URL_PATH].component_name == "lovelace"

@@ -399,3 +399,21 @@ test("ha-svg-icon-Hook: Symbole ohne Ebenen steigen ohne DOM-Zugriff aus", () =>
   hookUpdated(undefined, layers).call(bad, new Map());
   assert.equal(paintLayers({ path: "L" }, layers), false);
 });
+
+test("variants.json: loaded once, retried after an error", async () => {
+  let fail = true;
+  const calls = [];
+  const local = createSFSymbols({
+    base: "/x/",
+    fetchJson: async (url) => {
+      calls.push(url);
+      if (fail) throw new Error("401");
+      return { h: ["a"], m: [] };
+    },
+  });
+  await assert.rejects(local.getVariants(), /401/);
+  fail = false;
+  assert.deepEqual(await local.getVariants(), { h: ["a"], m: [] });
+  await local.getVariants();
+  assert.deepEqual(calls, ["/x/variants.json", "/x/variants.json"]);
+});

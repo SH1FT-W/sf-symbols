@@ -1,4 +1,4 @@
-"""Fixtures: eigene Integrationen erlauben, HTTP + Frontend-Stub (ohne hass_frontend-Paket), Eintrag."""
+"""Fixtures: allow custom integrations, HTTP + frontend stub (without the hass_frontend package), entry."""
 
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ def auto_enable_custom_integrations(enable_custom_integrations: None) -> None:
 
 @pytest.fixture
 async def frontend(hass: HomeAssistant) -> UrlManager:
-    """HTTP echt, Frontend nur als URL-Liste (das Frontend-Paket fehlt in der Test-venv)."""
+    """Real HTTP, frontend only as a URL list (the frontend package is missing in the test venv)."""
     assert await async_setup_component(hass, "http", {})
     hass.config.components.add("frontend")
     manager = UrlManager(lambda _action, _url: None, [])

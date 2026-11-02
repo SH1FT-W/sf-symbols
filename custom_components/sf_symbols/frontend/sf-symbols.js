@@ -6,8 +6,9 @@
 // what Cupertino effectively drew for them.
 //
 // This module is public; the data is not: /sf_symbols/<version>/m/<xx>.json (outlines),
-// v/<xx>.json (layers) and index.json (picker list) need the logged-in user's token, which the
-// module takes from Home Assistant's frontend (window.hassConnection / <home-assistant>.hass.auth).
+// v/<xx>.json (layers), index.json (picker list) and variants.json (symbol browser) need the
+// logged-in user's token, which the module takes from Home Assistant's frontend
+// (window.hassConnection / <home-assistant>.hass.auth).
 // The server inserts the config below; the version in the URL changes with every data/module update.
 
 const CONFIG = /*__SF_CONFIG__*/{};
@@ -53,6 +54,11 @@ export class Lru extends Map {
   set(key, value) {
     if (super.has(key)) super.delete(key);
     super.set(key, value);
+    return this.trim();
+  }
+
+  /** Drops the oldest entries beyond the limit (after lowering `max`). */
+  trim() {
     while (this.size > this.max) super.delete(this.keys().next().value);
     return this;
   }
@@ -226,7 +232,39 @@ export function createSFSymbols({ base, fetchJson, warn = () => {} }) {
     return lists[prefix];
   };
 
-  return { getIcon, getIconList, layers };
+  /** Which symbols have a hierarchical ("h") or multicolor ("m") variant: {h: [names], m: [names]}. */
+  let variants = null;
+  const getVariants = () => {
+    if (!variants) {
+      variants = fetchJson(`${base}variants.json`).catch((err) => {
+        variants = null;
+        throw err;
+      });
+    }
+    return variants;
+  };
+
+  /**
+   * The symbol browser shows symbols in index order, spread over most chunks by the name hash: with the
+   * normal limit every screen would evict chunks it still needs and fetch/parse them again. While the
+   * browser is open keep every chunk; the returned function restores the normal limit.
+   */
+  let wide = 0; // open browsers
+  const widenCache = () => {
+    wide++;
+    // outline (m/) and layer (v/) chunks share the cache: room for both
+    chunks.max = Math.max(MAX_CHUNKS, 2 * CHUNKS);
+    let done = false;
+    return () => {
+      if (done) return;
+      done = true;
+      if (--wide > 0) return;
+      chunks.max = MAX_CHUNKS;
+      chunks.trim();
+    };
+  };
+
+  return { getIcon, getIconList, getVariants, widenCache, chunks, layers };
 }
 
 /** Logged-in user's auth object (home-assistant-js-websocket Auth / Companion app's ExternalAuth). */

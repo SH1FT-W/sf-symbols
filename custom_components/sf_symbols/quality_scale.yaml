@@ -62,8 +62,8 @@ rules:
     status: done
     comment: Entladen meldet das Modul ab, die Daten-URLs antworten danach mit 404.
   docs-configuration-parameters:
-    status: exempt
-    comment: Keine Optionen.
+    status: done
+    comment: Eine Option (Symbol-Browser in der Seitenleiste), im README beschrieben.
   docs-installation-parameters:
     status: exempt
     comment: Keine Eingaben bei der Einrichtung.

@@ -26,9 +26,13 @@ A Home Assistant integration that makes Apple's SF Symbols available as icons ev
   formats, car or battery-stack symbols; also `lamp.floor` by 2 %) are scaled down into it.
 - **Fast**: outlines are bundled in 256 gzip chunks (≈20 KB each), loaded on demand and cached for a year
   in the browser; the URLs carry a version, so an update reaches every browser at once.
+- **Symbol browser** in the sidebar (administrators only): search every symbol (English and German terms),
+  switch between `sf:` and `ios:` names and the variants (monochrome, hierarchical, multicolor), click a symbol to
+  copy its name, e.g. `sf:house.fill` or `sf:cloud.sun.fill#multicolor`. Follows the light/dark theme, works on
+  phones, renders only the visible rows. Can be turned off in the integration options.
 - **Only for logged-in users**: the loader module is public (browsers load it before login), the symbol data
-  (`index.json`, `m/`, `v/`) is only served with a Home Assistant login (401 otherwise). The module fetches it
-  with the logged-in user's token, also in the Companion app.
+  (`index.json`, `variants.json`, `m/`, `v/`) is only served with a Home Assistant login (401 otherwise). The
+  module fetches it with the logged-in user's token, also in the Companion app.
 
 ## Installation
 
@@ -47,6 +51,10 @@ A Home Assistant integration that makes Apple's SF Symbols available as icons ev
 
 3. **Settings → Devices & services → Add integration → SF Symbols**, confirm.
 4. Reload the browser tab (if icons stay empty, reload a second time – the browser may still have the old page cached).
+
+The symbol browser appears in the sidebar as **SF Symbols** for administrators. To hide it:
+**Settings → Devices & services → SF Symbols → Configure** and turn off *Show symbol browser in the sidebar*
+(icons keep working).
 
 If Cupertino Icons is still installed, a repair notice asks you to remove it. Until then SF Symbols keeps the
 `ios:` prefix (it knows every Cupertino name), so nothing breaks. **Variants** (`#hierarchical`, `#multicolor`)
@@ -92,6 +100,10 @@ contact sheet for a visual check. Data update = run the script after a new SF Sy
 - *Icons are empty*: reload the browser (the module is loaded at page start), if needed twice because of the
   browser cache; check that the integration is set up. The data needs a login: on the login page or with an
   expired session icons stay empty until you are logged in.
+- *Symbol browser missing from the sidebar*: it is only shown to administrators and can be turned off in the
+  integration options; after an update reload the browser.
+- *Copy does not work*: browsers only allow clipboard access on HTTPS or through a fallback; if both are
+  blocked, the message shows the name to type in.
 - *Unknown name*: the browser console shows `SF Symbols: unknown icon …` once per name.
 - *Variants stay monochrome*: remove Cupertino Icons (see Installation).
 - Diagnostics (integration page → ⋮ → Download diagnostics) shows the symbol set version, counts and the module URL.

@@ -41,13 +41,19 @@
   `meta.json` (Satz-Version, Anzahl, Hash). Deutsche Suchbegriffe: `tools/keywords_de.json` (handgeschrieben,
   die App hat keine deutschen Keywords). Neuer Satz: App aktualisieren, Skript laufen lassen, Version erhöhen (nächste per `tools/next-version`).
 - `tools/preview.py` = PNG-Kontaktbogen zum Ansehen, `tools/logos.py` = Logo-Varianten/Vergleich/brand.
-- Server: `SFSymbolsModuleView` liefert `/sf_symbols/<version>/sf-symbols.js` öffentlich, `SFSymbolsDataView`
-  `index.json`, `m/xx.json`, `v/xx.json` nur mit Login (`requires_auth`, sonst 401; gzip, `private … immutable`
-  nur bei aktueller Version, sonst `no-cache`; 404 ohne geladenen Eintrag). Speicher-Cache wird im Event-Loop geprüft.
+- Server: `SFSymbolsModuleView` liefert `/sf_symbols/<version>/sf-symbols.js` und `sf-symbols-panel.js` öffentlich,
+  `SFSymbolsDataView` `index.json`, `variants.json`, `m/xx.json`, `v/xx.json` nur mit Login (`requires_auth`, sonst
+  401; gzip, `private … immutable` nur bei aktueller Version, sonst `no-cache`; 404 ohne geladenen Eintrag). Speicher-Cache wird im Event-Loop geprüft.
   Version = Integrationsversion + Daten-Hash + JS-Hash → Cache-Busting.
 - Frontend `frontend/sf-symbols.js`: `window.customIcons.sf/.ios` (per `defineProperty`, hat Vorrang vor Cupertino),
   Daten per Token aus `window.hassConnection` bzw. `<home-assistant>.hass.auth` (wartet auf der Login-Seite),
   Varianten über Hook in `ha-svg-icon.updated` (Ebenen-Map nach Pfad; Fallback = HAs `secondaryPath`).
+- Symbol-Browser (seit 26.11.1): `frontend/sf-symbols-panel.js` als Seitenleisten-Panel `sf-symbols` (panel_custom,
+  `require_admin`, Option `show_panel`, Standard an), öffentlich über `SFSymbolsModuleView` im selben
+  Versionsverzeichnis wie das Lade-Modul (importiert `./sf-symbols.js` → dieselbe Instanz). Zeichnet per `<ha-icon>`,
+  virtuelles Raster (nur sichtbare Zeilen), Varianten-Filter aus `variants.json` (Server bildet sie aus `v/`).
+  Panel-Höhe `100dvh` minus Safe-Area-Insets (HAs Container hat keine feste Höhe, polstert aber die Insets; ohne
+  feste Höhe 8000 Zellen + Abrufsturm). Solange offen: `api.widenCache()` hält alle m/- und v/-Stücke (512).
 - Konflikt: Cupertino geladen/eingerichtet → Repair-Hinweis `cupertino_installed` (nach Start erneut geprüft).
 
 ## Prüfen
