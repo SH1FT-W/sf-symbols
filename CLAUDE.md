@@ -8,15 +8,14 @@
 - **Lizenz:** Code MIT (SH1FT-W), Symboldaten unter `custom_components/sf_symbols/data/` gehören Apple und stehen
   nicht unter MIT (Hinweis in LICENSE und README, so wie Cupertino Icons es handhabt). Apples Marken-Symbole
   (Apple-Logo, Produktmarken) nie aufnehmen; Logo ohne Apple-Logo/-Symbole (eigene Zeichnung). Kein HACS-Default.
-- Lokal committen ok. **Push nur nach Rückfrage.** Release-Notizen auf GitHub englisch, README englisch.
+- Lokal committen ok. **Push nur nach Rückfrage.** README englisch.
 - Nichts Persönliches ins Repo (keine Heim-IPs, Entitätslisten nur anonymisiert in `tests/data/`).
 - Prod-HA nur auf ausdrücklichen Wunsch; Updates laufen über Privat-Updates (`~/Software/privat-updates`),
   nie selbst nach Prod kopieren, kein Neustart ohne Rückfrage.
-- Versionen = Kalender-Schema `YY.M.N` (Jahr, Monat ohne Null, N = laufendes Release im Monat ab 1; ab 26.10.x,
-  kein X.Y.Z mehr): jede Änderung = neue Version in `manifest.json` + CHANGELOG, `tools/next-version` rechnet sie aus
-  (zählt nur echte, veröffentlichte GitHub-Releases des Monats, auch alte X.Y.Z, bloße Tags nicht; ohne Release im Monat → .1; jedes Release als GitHub-Release veröffentlichen). Tag/Release-Titel = genau diese Nummer ohne „v“.
-- Deutsche Suchbegriffe (`tools/keywords_de.json`) greifen nur über Namensteile/-anfänge, nicht über Apples
-  englische Keywords (zu ungenau). HAs Picker macht aus Leerzeichen „-“ → Suchbegriffe mit „-“ speichern.
+- Versionen über `tools/next-version` (globale Regeln): jede Änderung = neue Version in `manifest.json` + CHANGELOG.
+- Deutsche Suchbegriffe (`tools/keywords_de.json`, handgeschrieben, die App hat keine deutschen) greifen nur über
+  Namensteile/-anfänge, nicht über Apples englische Keywords (zu ungenau). HAs Picker macht aus Leerzeichen „-“ →
+  Suchbegriffe mit „-“ speichern.
 - Kompatibilität: alle `ios:`-Namen aus `tests/data/` müssen auflösen (Prod-Entitäten, Dashboards
   Casora). Casora prüft per `getIconList()` auf `…-fill`/`…-inverse` – die `ios:`-Liste
   muss Cupertino-Schreibweise behalten. `ios:` bleibt im engen Rahmen (Casora skaliert `lamp-floor`/`lamp-table` 0.68).
@@ -34,27 +33,21 @@
 
 ## Aufbau
 
-- `tools/build_icons.py` (uv-Skript) + `tools/render_symbols.swift`: macOS zeichnet jedes Symbol per SwiftUI
-  `ImageRenderer` in Vektor-PDFs (mono/hierarchisch/mehrfarbig); das Skript liest die PDF-Operatoren, löst
-  SMasks (Luminosity/Alpha = Aussparungen) mit skia-pathops auf → einfache SVG-Pfade (nonzero), 256 gzip-Stücke
-  (`m/` Umrisse, `v/` Ebenen) nach FNV-1a-Hash des Namens, `index.json.gz` (Picker-Liste + Suchbegriffe),
-  `meta.json` (Satz-Version, Anzahl, Hash). Deutsche Suchbegriffe: `tools/keywords_de.json` (handgeschrieben,
-  die App hat keine deutschen Keywords). Neuer Satz: App aktualisieren, Skript laufen lassen, Version erhöhen (nächste per `tools/next-version`).
+- `tools/build_icons.py` (uv-Skript) + `tools/render_symbols.swift`: macOS zeichnet jedes Symbol per SwiftUI in
+  Vektor-PDFs, das Skript macht daraus einfache SVG-Pfade in gzip-Stücken unter `data/`. Neuer Satz: App
+  aktualisieren, Skript laufen lassen, Version erhöhen.
 - `tools/preview.py` = PNG-Kontaktbogen zum Ansehen, `tools/logos.py` = Logo-Varianten/Vergleich/brand.
-- Server: `SFSymbolsModuleView` liefert `/sf_symbols/<version>/sf-symbols.js` und `sf-symbols-panel.js` öffentlich,
-  `SFSymbolsDataView` `index.json`, `variants.json`, `m/xx.json`, `v/xx.json` nur mit Login (`requires_auth`, sonst
-  401; gzip, `private … immutable` nur bei aktueller Version, sonst `no-cache`; 404 ohne geladenen Eintrag). Speicher-Cache wird im Event-Loop geprüft.
-  Version = Integrationsversion + Daten-Hash + JS-Hash → Cache-Busting.
-- Frontend `frontend/sf-symbols.js`: `window.customIcons.sf/.ios` (per `defineProperty`, hat Vorrang vor Cupertino),
-  Daten per Token aus `window.hassConnection` bzw. `<home-assistant>.hass.auth` (wartet auf der Login-Seite),
-  Varianten über Hook in `ha-svg-icon.updated` (Ebenen-Map nach Pfad; Fallback = HAs `secondaryPath`).
-- Symbol-Browser (seit 26.11.1): `frontend/sf-symbols-panel.js` als Seitenleisten-Panel `sf-symbols` (panel_custom,
-  `require_admin`, Option `show_panel`, Standard an), öffentlich über `SFSymbolsModuleView` im selben
-  Versionsverzeichnis wie das Lade-Modul (importiert `./sf-symbols.js` → dieselbe Instanz). Zeichnet per `<ha-icon>`,
-  virtuelles Raster (nur sichtbare Zeilen), Varianten-Filter aus `variants.json` (Server bildet sie aus `v/`).
-  Panel-Höhe `100dvh` minus Safe-Area-Insets (HAs Container hat keine feste Höhe, polstert aber die Insets; ohne
-  feste Höhe 8000 Zellen + Abrufsturm). Solange offen: `api.widenCache()` hält alle m/- und v/-Stücke (512).
-- Konflikt: Cupertino geladen/eingerichtet → Repair-Hinweis `cupertino_installed` (nach Start erneut geprüft).
+- `__init__.py` Server: Lade-Modul und Panel öffentlich, Symboldaten nur mit Login; Version (Integration + Daten-
+  + JS-Hash) im Pfad → Cache-Busting. Repair-Hinweis `cupertino_installed`, solange Cupertino da ist.
+- `custom_components/sf_symbols/frontend/`: `sf-symbols.js` Lade-Modul (`window.customIcons.sf/.ios`), `sf-symbols-panel.js` Symbol-Browser
+  (Seitenleisten-Panel seit 26.11.1, nur Admins, Option `show_panel`).
+
+## Warum es so ist (steht nicht im Code)
+
+- `customIcons` per `defineProperty`, damit SF Symbols Vorrang vor Cupertino hat.
+- Panel-Höhe `100dvh` minus Safe-Area-Insets: HAs Container hat keine feste Höhe, polstert aber die Insets; ohne
+  feste Höhe 8000 Zellen + Abrufsturm.
+- Das Panel importiert `./sf-symbols.js` aus demselben Versionsverzeichnis → dieselbe Instanz wie das Lade-Modul.
 
 ## Prüfen
 
@@ -62,7 +55,7 @@
   (`pytest.ini` setzt `pythonpath = .`, `pytest` direkt geht ebenso; Coverage mit `--with pytest-cov
   … --cov=custom_components/sf_symbols`).
 - `node --test tests/js/*.test.mjs` (Frontend gegen die echten Daten, inkl. aller 6945 Cupertino-Namen)
-- `uvx ruff check . && uvx ruff format --check .`
+- `uvx ruff@0.16.9 check . && uvx ruff@0.16.9 format --check .` (Version wie in pruefung.yml)
 - Typen: einmal `uv venv --python 3.14 /tmp/venv-sf-symbols && uv pip install --python /tmp/venv-sf-symbols/bin/python
   -r requirements_test.txt`, dann `uvx mypy@2.3.1 --python-executable /tmp/venv-sf-symbols/bin/python`.
 - Übersetzungen: `python3 tools/pruefe-uebersetzungen.py` (Vorlage aus repo-vorlagen, byteidentisch, von ruff
@@ -70,7 +63,7 @@
 - CI: `.github/workflows/pruefung.yml` (Vorlage repo-vorlagen/vorlagen/ci-ha-integration.yml, COV_MIN 98, gemessen
   100) macht dasselbe plus Node-Tests und hassfest; montags zusätzlich gegen die neueste HA (darf rot sein).
 - `tools/next-version` ist die gemeinsame Fassung aus repo-vorlagen/vorlagen (byteidentisch, Abgleich dort).
-- HA-Annahmen: `docs/ha-annahmen.md` (Frontend-Interna, auf die das Modul baut) bei jeder Codeänderung mitpflegen.
+- HA-Annahmen: `docs/ha-annahmen.md` (Frontend-Interna, auf die das Modul baut).
 - hassfest: `docker run --rm -v "$PWD/custom_components/sf_symbols:/github/workspace/custom_components/sf_symbols" ghcr.io/home-assistant/hassfest`
 - Live: Wegwerf-Container (16.10.: `sf-symbols-test` auf :8150, Onboarding per API, Token in `hassTokens`,
   Playwright aus `~/.npm/_npx`), danach löschen.
