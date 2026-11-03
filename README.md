@@ -1,6 +1,6 @@
 # SF Symbols for Home Assistant
 
-[![HACS](https://img.shields.io/badge/HACS-custom-3D8BFF?style=flat-square&labelColor=111111)](https://hacs.xyz)
+[![Marketplace](https://img.shields.io/badge/Marketplace-custom-3D8BFF?style=flat-square&labelColor=111111)](https://hacs.xyz)
 [![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square&labelColor=111111)](LICENSE)
 
 A Home Assistant integration that makes Apple's SF Symbols available as icons everywhere in the UI:
@@ -36,9 +36,11 @@ A Home Assistant integration that makes Apple's SF Symbols available as icons ev
 
 ## Installation
 
-### HACS (custom repository)
+### Marketplace (custom repository)
 
-1. In HACS open the three-dot menu, choose **Custom repositories** and add
+The Marketplace is under Settings → Marketplace. On Home Assistant before 2026.11 it is still called HACS.
+
+1. In the Marketplace open the three-dot menu, choose **Custom repositories** and add
    `https://github.com/SH1FT-W/sf-symbols` with type **Integration**.
 2. Install **SF Symbols** and restart Home Assistant.
 
