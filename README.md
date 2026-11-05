@@ -1,15 +1,9 @@
 <div align="center">
 
-<img src="docs/logo.png" width="96" height="96" alt="" />
-
-<h1>SF Symbols for Home Assistant</h1>
-
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/browser-dark-hierarchical.webp" />
-  <img src="docs/images/browser-light.webp" width="720" alt="The SF Symbols browser in the Home Assistant sidebar: a search field, the sf: and ios: switch, the variants and a grid of symbols." />
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme-title-dark.webp" />
+  <img src="docs/images/readme-title-light.webp" alt="SF Symbols for Home Assistant: Apple's symbols, everywhere in Home Assistant." />
 </picture>
-
-<br/>
 
 [![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSH1FT-W%2Fsf-symbols%2Fmain%2Fcustom_components%2Fsf_symbols%2Fmanifest.json&query=%24.version&label=version&style=flat-square&color=3D8BFF&labelColor=111111)](https://github.com/SH1FT-W/sf-symbols/releases/latest)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.9%2B-3D8BFF?style=flat-square&labelColor=111111&logo=homeassistant&logoColor=white)](https://www.home-assistant.io)

@@ -1,0 +1,31 @@
+{
+  "$comment": "README title picture. Render with sh1ft-w.github.io/theme/v1/readme-images: node render.mjs <this repo> title. Colours and fonts from docs/index.html.",
+  "colors": {
+    "light": {
+      "bg": "#F6F7FC", "bg2": "#ECEEF8", "ink": "#12142A", "ink2": "#4A4F6A", "ink3": "rgba(18,20,42,0.56)",
+      "accentText": "#3A50D9", "accent": "#4F6BFF", "accent2": "#8B9BFF",
+      "glow1": "rgba(79,107,255,0.16)", "glow2": "rgba(139,155,255,0.14)",
+      "frame": "rgba(18,20,42,0.10)", "pillBg": "#ffffff", "pillLine": "rgba(18,20,42,0.08)", "win": "#08091A"
+    },
+    "dark": {
+      "bg": "#08091A", "bg2": "#0F1124", "ink": "#EEF0FA", "ink2": "rgba(214,218,240,0.84)", "ink3": "rgba(214,218,240,0.54)",
+      "accentText": "#9AA8FF", "accent": "#4F6BFF", "accent2": "#8B9BFF",
+      "glow1": "rgba(79,107,255,0.24)", "glow2": "rgba(139,155,255,0.10)",
+      "frame": "rgba(255,255,255,0.10)", "pillBg": "rgba(255,255,255,0.06)", "pillLine": "rgba(255,255,255,0.10)", "win": "#08091A"
+    }
+  },
+  "fonts": {
+    "display": "\"Archivo\", -apple-system, system-ui, sans-serif",
+    "body": "\"Inter\", -apple-system, system-ui, sans-serif",
+    "mono": "\"JetBrains Mono\", ui-monospace, Menlo, monospace",
+    "google": "https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"
+  },
+  "title": {
+    "layout": "center",
+    "name": "SF Symbols",
+    "eyebrow": "For Home Assistant",
+    "lead": "Apple's symbols. <em>Everywhere in Home Assistant.</em>",
+    "pills": [["9,524 symbols"], ["Monochrome, hierarchical, multicolor", "v"], ["Marketplace"]],
+    "logo": "docs/logo.png"
+  }
+}
