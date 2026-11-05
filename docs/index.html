@@ -231,6 +231,11 @@ footer .fine { flex-basis: 100%; line-height: 1.6; }
 }
 /* SF Symbols: Präfixe, Varianten, Bilder */
 .prefix { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tbl { width: 100%; margin-top: 16px; border-collapse: separate; border-spacing: 0; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; font-size: 15px; }
+.tbl th, .tbl td { text-align: left; padding: 14px 18px; border-top: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+.tbl thead th { border-top: 0; background: var(--card-2); color: var(--accent-ink); }
+.tbl td:first-child { font-weight: 600; color: var(--ink); width: 26%; }
+.tbl code { font-size: 13px; background: var(--chip); padding: 2px 6px; border-radius: 6px; overflow-wrap: anywhere; }
 .prefix .tile pre { margin: 18px 0 0; background: var(--chip); border-radius: 14px; padding: 14px 16px; font: 500 14px/1.6 var(--mono); color: var(--ink); overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
 .strip { display: block; margin: 0 auto; max-width: 100%; height: auto; border-radius: 18px; background: #fff; padding: 14px 22px; box-shadow: var(--shadow); }
 .shot { display: block; width: 100%; height: auto; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
@@ -302,11 +307,20 @@ icon: sf:cloud.sun.fill#multicolor</pre></div>
 icon: ios:cloud-sun-fill
 icon: ios:house#hierarchical</pre></div>
     </div>
-    <div class="grid3" style="margin-top: 16px">
-      <div class="tile reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><h3>9,524 symbols</h3><p>Every symbol of SF Symbols 27.0 (Cupertino Icons 5.0.1: 6,945). Every Cupertino name resolves, renamed Apple symbols resolve through Apple&rsquo;s alias tables.</p></div>
+    <table class="tbl reveal">
+      <thead><tr><th></th><th><code>sf:</code></th><th><code>ios:</code></th></tr></thead>
+      <tbody>
+        <tr><td>Names</td><td>Apple&rsquo;s, e.g. <code>sf:lamp.floor</code></td><td>Cupertino&rsquo;s, e.g. <code>ios:lamp-floor</code></td></tr>
+        <tr><td>Symbols</td><td>all 9,524; renamed Apple symbols resolve through Apple&rsquo;s alias tables</td><td>every Cupertino Icons 5.0.1 name (6,945)</td></tr>
+        <tr><td>Frame</td><td>one square for all, like MDI, so symbols line up with MDI icons</td><td>tight, like Cupertino</td></tr>
+        <tr><td>Found in the picker by</td><td>name, Apple&rsquo;s keywords and categories, German terms</td><td>name</td></tr>
+        <tr><td>Variants <code>#hierarchical</code>, <code>#multicolor</code></td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Best for</td><td>new icons</td><td>dashboards that already use Cupertino</td></tr>
+      </tbody>
+    </table>
+    <div class="prefix" style="margin-top: 16px">
       <div class="tile reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Hierarchical and multicolor</h3><p>Append <code>#hierarchical</code> (<code>#h</code>) or <code>#multicolor</code> (<code>#m</code>). 6,440 symbols have hierarchical layers, 2,749 have multicolor; the rest stay monochrome.</p></div>
       <div class="tile reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><h3>Icon picker with search</h3><p>Apple&rsquo;s keywords and categories plus German smart home terms such as <em>Stehlampe</em> or <em>Rollladen</em>. &ldquo;floor lamp&rdquo; finds <code>lamp.floor</code>.</p></div>
-      <div class="tile reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="12" r="4"/></svg></div><h3>Lines up with MDI</h3><p>Every <code>sf:</code> symbol sits in the same square frame as Material icons, one scale and stroke weight. <code>ios:</code> keeps the tight Cupertino box, so nothing moves.</p></div>
       <div class="tile reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><h3>Fast</h3><p>Outlines come in 256 small gzip chunks, loaded on demand and cached for a year. The URLs carry a version, so an update reaches every browser at once.</p></div>
       <div class="tile reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>Only for logged in users</h3><p>The loader module is public, the symbol data is only served with a Home Assistant login, also in the Companion app.</p></div>
     </div>
@@ -317,7 +331,7 @@ icon: ios:house#hierarchical</pre></div>
 <section id="browser">
   <div class="wrap">
     <div class="head center reveal">
-      <p class="eyebrow">Symbol browser <span class="pill">26.11.1</span></p>
+      <p class="eyebrow">New in 26.11</p>
       <h2>Find it.<br><em>Click it. Paste it.</em></h2>
       <p class="lead">A page in the sidebar for administrators. Search every symbol in English and German, switch between <code>sf:</code> and <code>ios:</code> and the three variants, click a symbol to copy its name, e.g. <code>sf:cloud.sun.fill#multicolor</code>. Follows the light and dark theme and works on phones.</p>
     </div>
@@ -382,7 +396,7 @@ icon: ios:house#hierarchical</pre></div>
       <details><summary>The symbol browser is missing.</summary><p>It is only shown to administrators and can be turned off in the integration options. After an update, reload the browser.</p></details>
       <details><summary>Why is every symbol twice in the icon picker?</summary><p>Home Assistant lists every icon set, so each symbol shows up as <code>ios:</code> and <code>sf:</code>. Search terms are attached to <code>sf:</code> only, so a search shows each symbol once.</p></details>
       <details><summary>What is not supported?</summary><p>Variable values (such as <code>wifi</code> at 50 %), animations and gradients. Apple&rsquo;s brand symbols (Apple logo, product marks) are not included.</p></details>
-      <details><summary>Where does the symbol data come from?</summary><p>It is generated on a Mac from Apple&rsquo;s SF Symbols app with <code>tools/build_icons.py</code>, nothing is downloaded at runtime. See the <a href="https://github.com/SH1FT-W/sf-symbols#how-the-data-is-made">README</a>.</p></details>
+      <details><summary>Where does the symbol data come from?</summary><p>It is generated on a Mac from Apple&rsquo;s SF Symbols app with <code>tools/build_icons.py</code>, nothing is downloaded at runtime. See <a href="https://github.com/SH1FT-W/sf-symbols#readme">How it works</a> in the README.</p></details>
       <details><summary>How do I report a bug?</summary><p>Open a <a href="https://github.com/SH1FT-W/sf-symbols/issues">GitHub issue</a>, ideally with the diagnostics (integration page, three dot menu, Download diagnostics).</p></details>
     </div>
     <p class="legal reveal">The code is licensed under the <a href="https://github.com/SH1FT-W/sf-symbols/blob/main/LICENSE">MIT License</a>. The symbol data in <code>custom_components/sf_symbols/data/</code> is generated from Apple&rsquo;s SF Symbols app. SF Symbols are the property of Apple Inc. and are subject to <a href="https://developer.apple.com/sf-symbols/">Apple&rsquo;s license terms</a>; they are not covered by the MIT License.</p>

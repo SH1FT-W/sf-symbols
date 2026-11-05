@@ -1,126 +1,124 @@
-# SF Symbols for Home Assistant
+<div align="center">
 
+<img src="docs/logo.png" width="96" height="96" alt="" />
+
+<h1>SF Symbols for Home Assistant</h1>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/browser-dark-hierarchical.webp" />
+  <img src="docs/images/browser-light.webp" width="720" alt="The SF Symbols browser in the Home Assistant sidebar: a search field, the sf: and ios: switch, the variants and a grid of symbols." />
+</picture>
+
+<br/>
+
+[![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSH1FT-W%2Fsf-symbols%2Fmain%2Fcustom_components%2Fsf_symbols%2Fmanifest.json&query=%24.version&label=version&style=flat-square&color=3D8BFF&labelColor=111111)](https://github.com/SH1FT-W/sf-symbols/releases/latest)
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.9%2B-3D8BFF?style=flat-square&labelColor=111111&logo=homeassistant&logoColor=white)](https://www.home-assistant.io)
 [![Marketplace](https://img.shields.io/badge/Marketplace-custom-3D8BFF?style=flat-square&labelColor=111111)](https://hacs.xyz)
-[![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square&labelColor=111111)](LICENSE)
 
-A Home Assistant integration that makes Apple's SF Symbols available as icons everywhere in the UI:
+<a href="https://sh1ft-w.github.io/sf-symbols"><b>Website</b></a>&emsp;<a href="#install">Install</a>&emsp;<a href="#set-up">Set up</a>&emsp;<a href="#use">Use</a>&emsp;<a href="CHANGELOG.md">Changelog</a>
 
-- `sf:` with Apple's names, e.g. `sf:lamp.floor`, `sf:cloud.sun.fill`
-- `ios:` compatible with [Cupertino Icons](https://github.com/menahishayan/HomeAssistant-Cupertino-Icons), e.g.
-  `ios:lamp-floor` — it replaces Cupertino Icons without changing any dashboard, entity or Casora setting.
+</div>
 
-## Features
+<br/>
 
-- **9,524 symbols** of SF Symbols 27.0 (Cupertino Icons 5.0.1: 6,945). Every Cupertino name resolves; renamed
-  Apple symbols resolve through Apple's alias tables.
-- **Variants**: append `#hierarchical` (`#h`) or `#multicolor` (`#m`), e.g. `sf:cloud.sun.fill#multicolor`.
-  6,440 symbols have hierarchical layers, 2,749 have multicolor. Symbols without that variant stay monochrome.
-  Cupertino's suffixes (`#color`, `#invert`, `#fullcolor`) draw monochrome, as before.
-- **Icon picker** with search: Apple's keywords and categories plus German smart-home terms (e.g. "Stehlampe",
-  "Rollladen", "Heizung", "Steckdose"). Multi-word searches work in natural order ("floor lamp" → `lamp.floor`).
-  Search terms are attached to `sf:` only, so a search shows each symbol once; the `ios:` list still contains
-  every Cupertino name (found by name).
-- **Two sizes of frame**: `ios:` uses a tight box like Cupertino (same look as before). Every `sf:` symbol gets
-  the same square frame (circle size / 0.85, like MDI's padding), so symbols share one scale and stroke weight
-  and line up with MDI icons. Symbols larger than that square (about a quarter, mostly wide ones such as text
-  formats, car or battery-stack symbols; also `lamp.floor` by 2 %) are scaled down into it.
-- **Fast**: outlines are bundled in 256 gzip chunks (≈20 KB each), loaded on demand and cached for a year
-  in the browser; the URLs carry a version, so an update reaches every browser at once.
-- **Symbol browser** in the sidebar (administrators only): search every symbol (English and German terms),
-  switch between `sf:` and `ios:` names and the variants (monochrome, hierarchical, multicolor), click a symbol to
-  copy its name, e.g. `sf:house.fill` or `sf:cloud.sun.fill#multicolor`. Follows the light/dark theme, works on
-  phones, renders only the visible rows. Can be turned off in the integration options.
-- **Only for logged-in users**: the loader module is public (browsers load it before login), the symbol data
-  (`index.json`, `variants.json`, `m/`, `v/`) is only served with a Home Assistant login (401 otherwise). The
-  module fetches it with the logged-in user's token, also in the Companion app.
+Apple's SF Symbols as icons everywhere in Home Assistant: **9,524 symbols of SF Symbols 27.0**, in monochrome, hierarchical and multicolor, with an icon picker that also understands German smart-home words. It replaces [Cupertino Icons](https://github.com/menahishayan/HomeAssistant-Cupertino-Icons) without changing any dashboard, entity or Casora setting.
 
-## Installation
+The symbol data is generated on a Mac from Apple's SF Symbols app and belongs to Apple. It is not covered by the MIT license of the code, and Apple's brand symbols are not included.
 
-### Marketplace (custom repository)
+## `sf:` or `ios:`
 
-The Marketplace is under Settings → Marketplace. On Home Assistant before 2026.11 it is still called HACS.
+|  | `sf:` | `ios:` |
+|:--|:--|:--|
+| Names | Apple's, e.g. `sf:lamp.floor` | Cupertino's, e.g. `ios:lamp-floor` |
+| Symbols | all 9,524; renamed Apple symbols resolve through Apple's alias tables | every Cupertino Icons 5.0.1 name (6,945) |
+| Frame | one square for all, like MDI, so symbols line up with MDI icons | tight, like Cupertino |
+| Found in the picker by | name, Apple's keywords and categories, German terms | name |
+| Variants `#hierarchical`, `#multicolor` | ✓ | ✓ |
+| Best for | new icons | dashboards that already use Cupertino |
 
-1. In the Marketplace open the three-dot menu, choose **Custom repositories** and add
-   `https://github.com/SH1FT-W/sf-symbols` with type **Integration**.
-2. Install **SF Symbols** and restart Home Assistant.
+**New in 26.11:** a symbol browser in the sidebar. Search every symbol, switch between `sf:` and `ios:` and the variants, and click to copy the name. Every change is in the [changelog](CHANGELOG.md) (German).
 
-### Manual
+<a id="install"></a>
+## Install
 
-1. Copy `custom_components/sf_symbols` into your `config/custom_components`.
+SF Symbols is a custom repository. In **Settings > Marketplace** (called HACS before Home Assistant 2026.11) open the three-dot menu, choose **Custom repositories**, add `https://github.com/SH1FT-W/sf-symbols` with type **Integration**, install **SF Symbols** and restart Home Assistant.
+
+<details>
+<summary>Install by hand</summary>
+
+1. Copy `custom_components/sf_symbols` into `/config/custom_components/`.
 2. Restart Home Assistant.
 
-### Set up
+</details>
 
-3. **Settings → Devices & services → Add integration → SF Symbols**, confirm.
-4. Reload the browser tab (if icons stay empty, reload a second time – the browser may still have the old page cached).
+<a id="set-up"></a>
+## Set up
 
-The symbol browser appears in the sidebar as **SF Symbols** for administrators. To hide it:
-**Settings → Devices & services → SF Symbols → Configure** and turn off *Show symbol browser in the sidebar*
-(icons keep working).
+1. **Add the integration.** **Settings > Devices & services > Add integration > SF Symbols**, confirm.
+2. **Reload the browser tab.** If icons stay empty, reload a second time; the browser may still have the old page cached.
+3. **Remove Cupertino Icons** when the repair notice asks. Until then `ios:` keeps working, but the variants only work once Cupertino Icons is gone, because its own module still draws those suffixes its way.
 
-If Cupertino Icons is still installed, a repair notice asks you to remove it. Until then SF Symbols keeps the
-`ios:` prefix (it knows every Cupertino name), so nothing breaks. **Variants** (`#hierarchical`, `#multicolor`)
-only work once Cupertino Icons is removed: Cupertino's own module still hooks into the icon rendering and draws
-those suffixes its own way.
+<a id="use"></a>
+## Use
 
-## Use cases and examples
+| Where | What |
+|:--|:--|
+| Any icon field | `sf:` or `ios:` names, chosen in the icon picker. Multi-word searches work in natural order ("floor lamp" finds `lamp.floor`), German words too ("Stehlampe", "Rollladen", "Heizung", "Steckdose"). |
+| `#hierarchical` (`#h`), `#multicolor` (`#m`) | Appended to a name, e.g. `sf:cloud.sun.fill#multicolor`. 6,440 symbols have hierarchical layers, 2,749 multicolor; the rest stay monochrome. Cupertino's `#color`, `#invert` and `#fullcolor` draw monochrome, as before. |
+| Sidebar: **SF Symbols** | The symbol browser, for administrators. Follows the light and dark theme and works on phones. Turn it off under **Configure** with *Show symbol browser in the sidebar*; icons keep working. |
+| CSS variable `--sf-symbols-white` | White parts of multicolor symbols use the text colour so they stay visible in light themes. Set `#ffffff` for Apple's white. |
 
 ```yaml
-# Entity icon (UI: entity settings → icon)
-icon: sf:lightbulb.max
-# Tile card with a coloured weather symbol
 type: tile
 entity: weather.home
 icon: sf:cloud.sun.fill#multicolor
-# Existing Cupertino icons keep working
-icon: ios:lamp-floor
 ```
 
-White parts of multicolor symbols (e.g. the cloud in `cloud.sun.fill`) use the text colour
-(`var(--primary-text-color)`), so they stay visible in light themes. For Apple's original white, set the CSS
-variable `--sf-symbols-white: #ffffff` (e.g. in your theme or via card-mod/UIX).
+## Good to know
 
-## How the data is made
+- The picker lists every symbol twice (`ios:` and `sf:`), because Home Assistant shows every icon set.
+- Hierarchical and multicolor colours come from a small hook into Home Assistant's `ha-svg-icon`. If a frontend update breaks it, the icons fall back to Home Assistant's own two-tone rendering.
+- Variable values (e.g. `wifi` at 50 %), animations and gradients are not supported. The image inside `apple.writing.tools` is left out.
+- The symbol data is only served with a Home Assistant login. On the login page or with an expired session icons stay empty until you are logged in.
 
-`uv run tools/build_icons.py` (macOS, SF Symbols app, Xcode command line tools):
-macOS draws every symbol in monochrome, hierarchical and multicolor into vector PDFs (`tools/render_symbols.swift`);
-the script resolves Apple's masks with path booleans and writes plain SVG paths, plus names, aliases and keywords
-from the app's metadata. Takes about 25 seconds. `uv run tools/preview.py out.png lamp.floor house` renders a
-contact sheet for a visual check. Data update = run the script after a new SF Symbols app, bump the version.
+<details>
+<summary>Troubleshooting</summary>
 
-## Known limitations
+- **Icons are empty.** Reload the browser, if needed twice because of the cache, and check that the integration is set up.
+- **Symbol browser missing.** It is only shown to administrators and can be turned off in the options. After an update, reload the browser.
+- **Copy does not work.** Browsers only allow the clipboard on HTTPS or through a fallback; if both are blocked, the message shows the name to type in.
+- **Unknown name.** The browser console shows `SF Symbols: unknown icon …` once per name.
+- **Variants stay monochrome.** Remove Cupertino Icons.
+- **Diagnostics** (integration page, three dots, Download diagnostics) show the symbol set version, counts and the module URL.
 
-- Symbol data must be generated on a Mac with the SF Symbols app; it is not downloaded.
-- Hierarchical/multicolor colours are drawn by a small hook into Home Assistant's `ha-svg-icon`. Should that
-  break after a frontend update, the icons fall back to Home Assistant's own two-tone rendering.
-- Variable values (e.g. `wifi` at 50 %), animations and gradients of SF Symbols are not supported.
-- `apple.writing.tools` contains an image in multicolor; that part is left out.
-- The icon picker lists every symbol twice (`ios:` and `sf:`), because Home Assistant shows every icon set.
+</details>
 
-## Troubleshooting
+<details>
+<summary>Remove</summary>
 
-- *Icons are empty*: reload the browser (the module is loaded at page start), if needed twice because of the
-  browser cache; check that the integration is set up. The data needs a login: on the login page or with an
-  expired session icons stay empty until you are logged in.
-- *Symbol browser missing from the sidebar*: it is only shown to administrators and can be turned off in the
-  integration options; after an update reload the browser.
-- *Copy does not work*: browsers only allow clipboard access on HTTPS or through a fallback; if both are
-  blocked, the message shows the name to type in.
-- *Unknown name*: the browser console shows `SF Symbols: unknown icon …` once per name.
-- *Variants stay monochrome*: remove Cupertino Icons (see Installation).
-- Diagnostics (integration page → ⋮ → Download diagnostics) shows the symbol set version, counts and the module URL.
+1. Delete the integration under **Settings > Devices & services**.
+2. Remove the custom repository in the Marketplace (or delete `/config/custom_components/sf_symbols`) and restart Home Assistant.
 
-## Removal
+Icons using `sf:` or `ios:` are empty afterwards.
 
-Delete the integration under **Settings → Devices & services**, then remove `custom_components/sf_symbols` and
-restart. Icons using `sf:`/`ios:` will be empty afterwards.
+</details>
 
-## License and legal
+<details>
+<summary>How it works</summary>
 
-The code (integration, frontend module, tools) is licensed under the [MIT License](LICENSE).
+| Part | Does |
+|:--|:--|
+| Loader module | Public, because browsers load it before login. Fetches the symbol data with the logged-in user's token, also in the Companion app. |
+| Symbol data | Outlines in 256 gzip chunks (about 20 KB each) plus `index.json` and `variants.json`, loaded on demand, cached for a year. Only with a login (401 otherwise). |
+| Versioned URLs | The version is in every URL, so an update reaches every browser at once. |
+| `tools/build_icons.py` | On macOS with the SF Symbols app: macOS draws every symbol in all three modes into vector PDFs (`tools/render_symbols.swift`), the script turns Apple's masks into plain SVG paths and adds names, aliases and keywords. About 25 seconds. |
 
-The symbol data in `custom_components/sf_symbols/data/` is generated from Apple's SF Symbols app
-(`tools/build_icons.py`). SF Symbols are the property of Apple Inc. and are subject to
-[Apple's license terms](https://developer.apple.com/sf-symbols/); they are not covered by the MIT License.
-Apple's brand symbols (Apple logo, product marks) are not included. This project is not affiliated with
-or endorsed by Apple Inc.
+`uv run tools/preview.py out.png lamp.floor house` renders a contact sheet for a visual check. A data update means running the script after a new SF Symbols app and bumping the version.
+
+</details>
+
+## License
+
+The code (integration, frontend module, tools) is [MIT](LICENSE). The symbol data in `custom_components/sf_symbols/data/` is generated from Apple's SF Symbols app; SF Symbols are the property of Apple Inc. and subject to [Apple's license terms](https://developer.apple.com/sf-symbols/), not the MIT license.
+
+<sub>This project is not affiliated with or endorsed by Apple Inc.</sub>
