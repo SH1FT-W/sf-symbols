@@ -35,7 +35,16 @@ The symbol data is generated on a Mac from Apple's SF Symbols app and belongs to
 <a id="install"></a>
 ## Install
 
-SF Symbols is a custom repository. In **Settings > Marketplace** (called HACS before Home Assistant 2026.11) open the three-dot menu, choose **Custom repositories**, add `https://github.com/SH1FT-W/sf-symbols` with type **Integration**, install **SF Symbols** and restart Home Assistant.
+[![Open in the Marketplace](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=SH1FT-W&repository=sf-symbols&category=integration)
+
+Search for **SF Symbols** under **Settings > Marketplace** (called HACS before Home Assistant 2026.11), download it and restart Home Assistant.
+
+<details>
+<summary>Not in the search yet?</summary>
+
+Open the three-dot menu in the Marketplace, choose **Custom repositories**, add `https://github.com/SH1FT-W/sf-symbols` with type **Integration**, then download **SF Symbols** and restart Home Assistant.
+
+</details>
 
 <details>
 <summary>Install by hand</summary>

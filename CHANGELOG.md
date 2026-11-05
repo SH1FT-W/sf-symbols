@@ -1,5 +1,10 @@
 # Changelog
 
+## 26.11.3 – 05.11.2026
+
+- README and project page: the install steps lead with the Marketplace search, the custom repository stays as a fallback. New title picture.
+- CI: HACS validation on every push.
+
 ## 26.11.2 – 05.11.2026
 
 - README and project page: new layout, shorter and easier to scan, with one table at the core.
