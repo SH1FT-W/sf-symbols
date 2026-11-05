@@ -4,7 +4,7 @@
 # ///
 """Build the SF Symbols icon data from the locally installed SF Symbols app.
 
-SF Symbols are Apple's property and subject to Apple's license terms (see LICENSE). This
+SF Symbols are Apple's property and subject to Apple's license terms (see NOTICE). This
 script reads the app and macOS on *this* Mac and writes the data into the integration.
 
 How it works:
