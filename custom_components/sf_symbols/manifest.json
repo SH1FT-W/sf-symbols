@@ -1,14 +1,20 @@
 {
   "domain": "sf_symbols",
   "name": "SF Symbols",
-  "codeowners": ["@SH1FT-W"],
+  "codeowners": [
+    "@SH1FT-W"
+  ],
   "config_flow": true,
-  "dependencies": ["frontend", "http", "panel_custom"],
+  "dependencies": [
+    "frontend",
+    "http",
+    "panel_custom"
+  ],
   "documentation": "https://github.com/SH1FT-W/sf-symbols",
   "integration_type": "service",
   "iot_class": "calculated",
   "issue_tracker": "https://github.com/SH1FT-W/sf-symbols/issues",
   "requirements": [],
   "single_config_entry": true,
-  "version": "26.11.1"
+  "version": "26.11.2"
 }

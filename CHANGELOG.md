@@ -1,5 +1,9 @@
 # Changelog
 
+## 26.11.2 – 05.11.2026
+
+- README and project page: new layout, shorter and easier to scan, with one table at the core.
+
 ## 26.11.1 – 02.11.2026
 
 - **Symbol-Browser** in der Seitenleiste („SF Symbols“, nur für Administratoren): Suche über alle Symbole (Apples englische Begriffe und die deutschen Suchwörter, Mehrwort in beliebiger Reihenfolge, auch `sf:…`/`ios:…` einfügbar), Umschalter `sf:`/`ios:` und einfarbig/hierarchisch/mehrfarbig (zeigt dann nur Symbole mit dieser Variante), Klick kopiert den Namen samt Variante (z. B. `sf:cloud.sun.fill#multicolor`) mit kurzer Bestätigung. Hell/dunkel nach dem HA-Design, Handy-tauglich (Menüknopf), Oberfläche deutsch/englisch nach Nutzersprache. Nur sichtbare Zeilen werden gezeichnet (über 8000 Symbole), solange der Browser offen ist, bleiben alle Datenstücke (Umrisse und Ebenen) im Speicher, damit beim Scrollen nichts doppelt geladen wird; danach gilt wieder das normale Limit, die Daten kommen aus den Symboldateien der Integration.
