@@ -122,6 +122,6 @@ Icons using `sf:` or `ios:` are empty afterwards.
 
 ## License
 
-The code (integration, frontend module, tools) is [MIT](LICENSE). The symbol data in `custom_components/sf_symbols/data/` is generated from Apple's SF Symbols app; SF Symbols are the property of Apple Inc. and subject to [Apple's license terms](https://developer.apple.com/sf-symbols/), not the MIT license.
+The code (integration, frontend module, tools) is [MIT](LICENSE). The symbol data in `custom_components/sf_symbols/data/` is generated from Apple's SF Symbols app; SF Symbols are the property of Apple Inc. and subject to [Apple's license terms](https://developer.apple.com/sf-symbols/), not the MIT license. Details in [`NOTICE`](NOTICE).
 
 <sub>This project is not affiliated with or endorsed by Apple Inc.</sub>

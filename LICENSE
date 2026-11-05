@@ -19,13 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-The MIT License covers the code of this repository (integration, frontend module, tools).
-
-The symbol data under custom_components/sf_symbols/data/ is derived from Apple's SF Symbols.
-SF Symbols are the property of Apple Inc. and are subject to Apple's license terms
-(see the SF Symbols app and the Xcode and Apple SDKs Agreement). They are not covered by the
-MIT License. "SF Symbols" and "Apple" are trademarks of Apple Inc.; this project is not
-affiliated with or endorsed by Apple.

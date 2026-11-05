@@ -6,7 +6,7 @@
 ## Regeln
 
 - **Lizenz:** Code MIT (SH1FT-W), Symboldaten unter `custom_components/sf_symbols/data/` gehören Apple und stehen
-  nicht unter MIT (Hinweis in LICENSE und README, so wie Cupertino Icons es handhabt). Apples Marken-Symbole
+  nicht unter MIT (Hinweis in NOTICE und README, LICENSE bleibt reines MIT, sonst erkennt GitHub/HACS die Lizenz nicht; so wie Cupertino Icons es handhabt). Apples Marken-Symbole
   (Apple-Logo, Produktmarken) nie aufnehmen; Logo ohne Apple-Logo/-Symbole (eigene Zeichnung). Für den Marketplace (hacs/default) eingereicht: Daniels Entscheidung 05.11.2026.
 - Lokal committen ok. **Push nur nach Rückfrage.** README englisch.
 - Nichts Persönliches ins Repo (keine Heim-IPs, Entitätslisten nur anonymisiert in `tests/data/`).

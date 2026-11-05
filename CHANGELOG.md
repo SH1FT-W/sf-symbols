@@ -4,6 +4,7 @@
 
 - README and project page: the install steps lead with the Marketplace search, the custom repository stays as a fallback. New title picture.
 - CI: HACS validation on every push.
+- LICENSE is plain MIT again so GitHub recognises it; the note on Apple's symbol data moved to `NOTICE`.
 
 ## 26.11.2 – 05.11.2026
 
