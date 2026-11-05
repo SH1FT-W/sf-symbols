@@ -7,7 +7,7 @@
 
 [![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSH1FT-W%2Fsf-symbols%2Fmain%2Fcustom_components%2Fsf_symbols%2Fmanifest.json&query=%24.version&label=version&style=flat-square&color=3D8BFF&labelColor=111111)](https://github.com/SH1FT-W/sf-symbols/releases/latest)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.9%2B-3D8BFF?style=flat-square&labelColor=111111&logo=homeassistant&logoColor=white)](https://www.home-assistant.io)
-[![Marketplace](https://img.shields.io/badge/Marketplace-custom-3D8BFF?style=flat-square&labelColor=111111)](https://hacs.xyz)
+[![Marketplace](https://img.shields.io/badge/Marketplace-default-3D8BFF?style=flat-square&labelColor=111111)](https://hacs.xyz)
 
 <a href="https://sh1ft-w.github.io/sf-symbols"><b>Website</b></a>&emsp;<a href="#install">Install</a>&emsp;<a href="#set-up">Set up</a>&emsp;<a href="#use">Use</a>&emsp;<a href="CHANGELOG.md">Changelog</a>
 
@@ -38,13 +38,6 @@ The symbol data is generated on a Mac from Apple's SF Symbols app and belongs to
 [![Open in the Marketplace](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=SH1FT-W&repository=sf-symbols&category=integration)
 
 Search for **SF Symbols** under **Settings > Marketplace** (called HACS before Home Assistant 2026.11), download it and restart Home Assistant.
-
-<details>
-<summary>Not in the search yet?</summary>
-
-Open the three-dot menu in the Marketplace, choose **Custom repositories**, add `https://github.com/SH1FT-W/sf-symbols` with type **Integration**, then download **SF Symbols** and restart Home Assistant.
-
-</details>
 
 <details>
 <summary>Install by hand</summary>
@@ -100,7 +93,7 @@ icon: sf:cloud.sun.fill#multicolor
 <summary>Remove</summary>
 
 1. Delete the integration under **Settings > Devices & services**.
-2. Remove the custom repository in the Marketplace (or delete `/config/custom_components/sf_symbols`) and restart Home Assistant.
+2. Remove SF Symbols in the Marketplace (or delete `/config/custom_components/sf_symbols`) and restart Home Assistant.
 
 Icons using `sf:` or `ios:` are empty afterwards.
 
