@@ -2,14 +2,14 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme-title-dark.webp" />
-  <img src="docs/images/readme-title-light.webp" alt="SF Symbols for Home Assistant: Apple's symbols, everywhere in Home Assistant." />
+  <img src="docs/images/readme-title-light.webp" alt="SF Symbols: Apple's SF Symbols as icons in Home Assistant. 9,524 symbols. Hierarchical and multicolor. sf: and ios: prefixes." />
 </picture>
 
 [![Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSH1FT-W%2Fsf-symbols%2Fmain%2Fcustom_components%2Fsf_symbols%2Fmanifest.json&query=%24.version&label=version&style=flat-square&color=3D8BFF&labelColor=111111)](https://github.com/SH1FT-W/sf-symbols/releases/latest)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.9%2B-3D8BFF?style=flat-square&labelColor=111111&logo=homeassistant&logoColor=white)](https://www.home-assistant.io)
 [![Marketplace](https://img.shields.io/badge/Marketplace-default-3D8BFF?style=flat-square&labelColor=111111)](https://hacs.xyz)
 
-<a href="https://sh1ft-w.github.io/sf-symbols"><b>Website</b></a>&emsp;<a href="#install">Install</a>&emsp;<a href="#set-up">Set up</a>&emsp;<a href="#use">Use</a>&emsp;<a href="CHANGELOG.md">Changelog</a>
+<a href="https://sh1ft-w.github.io/sf-symbols"><b>Website</b></a>&emsp;<a href="#get-started">Get started</a>&emsp;<a href="#use">Use</a>&emsp;<a href="#good-to-know">Good to know</a>&emsp;<a href="CHANGELOG.md">Changelog</a>
 
 </div>
 
@@ -19,7 +19,7 @@ Apple's SF Symbols as icons everywhere in Home Assistant: **9,524 symbols of SF 
 
 The symbol data is generated on a Mac from Apple's SF Symbols app and belongs to Apple. It is not covered by the MIT license of the code, and Apple's brand symbols are not included.
 
-## `sf:` or `ios:`
+## What you get
 
 |  | `sf:` | `ios:` |
 |:--|:--|:--|
@@ -32,12 +32,15 @@ The symbol data is generated on a Mac from Apple's SF Symbols app and belongs to
 
 **New in 26.11:** a symbol browser in the sidebar. Search every symbol, switch between `sf:` and `ios:` and the variants, and click to copy the name. Every change is in the [changelog](CHANGELOG.md) (German).
 
-<a id="install"></a>
-## Install
+<a id="get-started"></a><a id="install"></a><a id="set-up"></a>
+## Get started
 
 [![Open in the Marketplace](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=SH1FT-W&repository=sf-symbols&category=integration)
 
-Search for **SF Symbols** under **Settings > Marketplace** (called HACS before Home Assistant 2026.11), download it and restart Home Assistant.
+1. **Install it.** Search for **SF Symbols** under **Settings > Marketplace** (called HACS before Home Assistant 2026.11), download it and restart Home Assistant.
+2. **Add the integration.** **Settings > Devices & services > Add integration > SF Symbols**, confirm.
+3. **Reload the browser tab.** If icons stay empty, reload a second time; the browser may still have the old page cached.
+4. **Remove Cupertino Icons** when the repair notice asks. Until then `ios:` keeps working, but the variants only work once Cupertino Icons is gone, because its own module still draws those suffixes its way.
 
 <details>
 <summary>Install by hand</summary>
@@ -46,13 +49,6 @@ Search for **SF Symbols** under **Settings > Marketplace** (called HACS before H
 2. Restart Home Assistant.
 
 </details>
-
-<a id="set-up"></a>
-## Set up
-
-1. **Add the integration.** **Settings > Devices & services > Add integration > SF Symbols**, confirm.
-2. **Reload the browser tab.** If icons stay empty, reload a second time; the browser may still have the old page cached.
-3. **Remove Cupertino Icons** when the repair notice asks. Until then `ios:` keeps working, but the variants only work once Cupertino Icons is gone, because its own module still draws those suffixes its way.
 
 <a id="use"></a>
 ## Use
@@ -70,6 +66,7 @@ entity: weather.home
 icon: sf:cloud.sun.fill#multicolor
 ```
 
+<a id="good-to-know"></a>
 ## Good to know
 
 - The picker lists every symbol twice (`ios:` and `sf:`), because Home Assistant shows every icon set.
@@ -118,3 +115,11 @@ Icons using `sf:` or `ios:` are empty afterwards.
 The code (integration, frontend module, tools) is [MIT](LICENSE). The symbol data in `custom_components/sf_symbols/data/` is generated from Apple's SF Symbols app; SF Symbols are the property of Apple Inc. and subject to [Apple's license terms](https://developer.apple.com/sf-symbols/), not the MIT license. Details in [`NOTICE`](NOTICE).
 
 <sub>This project is not affiliated with or endorsed by Apple Inc.</sub>
+
+<br/>
+
+<div align="center">
+<a href="https://sh1ft-w.github.io"><img src="https://sh1ft-w.github.io/readme/footer.png" width="640" alt="All SH1FT-W projects"></a>
+<br/>
+<sub>More open source for Home Assistant and the Mac at <a href="https://sh1ft-w.github.io">sh1ft-w.github.io</a></sub>
+</div>
