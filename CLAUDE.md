@@ -10,8 +10,8 @@
   (Apple-Logo, Produktmarken) nie aufnehmen; Logo ohne Apple-Logo/-Symbole (eigene Zeichnung). Für den Marketplace (hacs/default) eingereicht: Daniels Entscheidung 05.11.2026.
 - Lokal committen ok. **Push nur nach Rückfrage.** README englisch.
 - Nichts Persönliches ins Repo (keine Heim-IPs, Entitätslisten nur anonymisiert in `tests/data/`).
-- Prod-HA nur auf ausdrücklichen Wunsch; Updates laufen über Privat-Updates (`~/Software/privat-updates`),
-  nie selbst nach Prod kopieren, kein Neustart ohne Rückfrage.
+- Prod-HA nur auf ausdrücklichen Wunsch; Updates laufen über den Marketplace (öffentliches Repo,
+  nicht über Privat-Updates), nie selbst nach Prod kopieren, kein Neustart ohne Rückfrage.
 - Versionen über `tools/next-version` (globale Regeln): jede Änderung = neue Version in `manifest.json` + CHANGELOG.
 - Deutsche Suchbegriffe (`tools/keywords_de.json`, handgeschrieben, die App hat keine deutschen) greifen nur über
   Namensteile/-anfänge, nicht über Apples englische Keywords (zu ungenau). HAs Picker macht aus Leerzeichen „-“ →
