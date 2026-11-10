@@ -16,7 +16,7 @@ const CHUNKS = CONFIG.chunks || 256;
 const FRAME = CONFIG.frame || 24;
 const SVG_NS = "http://www.w3.org/2000/svg";
 // Marks the path of a layered variant, so the ha-svg-icon hook can tell it apart from the
-// plain outline (zero-area subpaths, invisible).
+// plain outline (zero-area subpaths, invisible). layered() adds a fingerprint subpath per drawing.
 const MARK = { h: "M0 0z", m: "M0 0zM0 0z" };
 const VARIANTS = { hierarchical: "h", h: "h", multicolor: "m", m: "m" };
 // Memory limits: decoded chunks are large (≈ 37 symbols each), layer info is per painted icon.
@@ -139,14 +139,19 @@ export function layered(variant, layers, mark = MARK[variant], fit = (d) => d) {
     } else {
       const [color, opacity, raw] = layer;
       const d = fit(raw);
-      // Apple-Weiß wäre im hellen Design unsichtbar → Textfarbe (Apple-Weiß: --sf-symbols-white: #fff setzen)
+      // Apple's white would be invisible in a light theme → text colour (for Apple's white set --sf-symbols-white: #fff)
       const fill = color === "#ffffff" ? "var(--sf-symbols-white, var(--primary-text-color))" : color;
       out.push({ d, opacity, fill });
       if (!color) primary += d;
       else secondary += d;
     }
   }
-  return { path: primary + mark, secondaryPath: secondary || undefined, layers: out };
+  // The path is the key of the layer cache and what the ha-svg-icon hook looks up: it has to be
+  // unique per drawing. Symbols whose layers are all coloured / translucent have no primary path,
+  // so a fingerprint of the layers goes into one more invisible subpath.
+  const text = JSON.stringify(out);
+  const id = `M0 0.${fnv1a(text)}${text.length}z`;
+  return { path: primary + mark + id, secondaryPath: secondary || undefined, layers: out };
 }
 
 export function createSFSymbols({ base, fetchJson, warn = () => {} }) {

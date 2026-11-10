@@ -126,7 +126,7 @@ test("umbenannte Symbole lösen über Aliase auf", async () => {
 
 test("hierarchisch und mehrfarbig", async () => {
   const h = await api.getIcon("sf", "cloud.sun.fill#hierarchical");
-  assert.ok(h.path.endsWith("M0 0z") && h.secondaryPath);
+  assert.ok(/M0 0zM0 0\.\d+z$/.test(h.path) && h.secondaryPath);
   const layers = api.layers.get(h.path);
   assert.ok(layers.some((l) => l.opacity < 1));
   const m = await api.getIcon("ios", "cloud-sun-fill#multicolor");
@@ -136,9 +136,35 @@ test("hierarchisch und mehrfarbig", async () => {
   assert.equal(plain.path, (await api.getIcon("sf", "lamp.floor")).path);
 });
 
+// Issue #2: fully coloured multicolor symbols have no primary path; the path is the key of the
+// layer cache, so it has to differ per symbol.
+test("multicolor: fully coloured symbols keep their own layers", async () => {
+  const names = ["cloud.fill", "cloud.rain.fill", "cloud.sun.fill", "cloud.moon.fill"];
+  const icons = [];
+  for (const name of names) icons.push(await api.getIcon("sf", `${name}#multicolor`));
+  assert.equal(new Set(icons.map((i) => i.path)).size, icons.length);
+  const drawn = icons.map((i) => api.layers.get(i.path).map((l) => l.d).join(""));
+  assert.equal(new Set(drawn).size, icons.length);
+  // each icon still finds the layers of its own symbol
+  icons.forEach((i) => assert.equal(api.layers.get(i.path).map((l) => l.d).join(""), i.secondaryPath));
+  // same drawing again: same path (stable key, no extra cache entry); "ios:" only differs in the viewBox
+  assert.equal((await api.getIcon("sf", "cloud.fill#multicolor")).path, icons[0].path);
+  assert.equal((await api.getIcon("ios", "cloud-rain-fill#multicolor")).path, icons[1].path);
+});
+
+test("layered: same shapes with other colours or opacity get another path", () => {
+  const a = layered("m", [["#ff0000", 1, "M1 1z"]]);
+  const b = layered("m", [["#00ff00", 1, "M1 1z"]]);
+  const c = layered("h", [[0.5, "M1 1z"]]);
+  const d = layered("h", [[0.3, "M1 1z"]]);
+  assert.notEqual(a.path, b.path);
+  assert.notEqual(c.path, d.path);
+  assert.notEqual(a.path, c.path);
+});
+
 test("layered: Weiß = Textfarbe über CSS-Variable, Hauptfarbe = currentColor", () => {
   const r = layered("m", [["", 1, "M1 1z"], ["#ffffff", 1, "M2 2z"]], "");
-  assert.equal(r.path, "M1 1z");
+  assert.match(r.path, /^M1 1zM0 0\.\d+z$/);
   assert.equal(r.secondaryPath, "M2 2z");
   assert.equal(r.layers[1].fill, "var(--sf-symbols-white, var(--primary-text-color))");
 });

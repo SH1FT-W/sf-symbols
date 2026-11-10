@@ -1,5 +1,9 @@
 # Changelog
 
+## 26.11.4 – 10.11.2026
+
+- Fix: multicolor symbols whose layers are all coloured (640 symbols, e.g. `cloud.fill`, `cloud.rain.fill`, `cloud.sun.fill`, `cloud.moon.fill`) could show the wrong symbol when several of them were on screen, such as in a weather forecast. They all shared one internal key, so the symbol loaded last replaced the others. Every layered drawing now carries its own fingerprint (#2, thanks @yyx0725).
+
 ## 26.11.3 – 05.11.2026
 
 - README and project page: the install steps lead with the Marketplace search, the custom repository stays as a fallback. New title picture.
