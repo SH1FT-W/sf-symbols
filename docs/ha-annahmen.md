@@ -6,7 +6,7 @@
 
 Worauf sich dieses Repo bei Home Assistant verlässt. Bei jeder Änderung am Code mitpflegen.
 
-**Getestet mit:** HA 2026.10 · **Mindestversion:** siehe `hacs.json` / `manifest.json`
+**Getestet mit:** HA 2026.11.2 (Tests, 20.11.2026), live 2026.10.1 · **Mindestversion:** siehe `hacs.json` / `manifest.json`
 
 ## Annahmen
 

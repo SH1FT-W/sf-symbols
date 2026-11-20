@@ -30,7 +30,7 @@ The symbol data is generated on a Mac from Apple's SF Symbols app and belongs to
 | Variants `#hierarchical`, `#multicolor` | ✓ | ✓ |
 | Best for | new icons | dashboards that already use Cupertino |
 
-**New in 26.11:** a symbol browser in the sidebar. Search every symbol, switch between `sf:` and `ios:` and the variants, and click to copy the name. Every change is in the [changelog](CHANGELOG.md) (German).
+**New in 26.11:** a symbol browser in the sidebar. Search every symbol, switch between `sf:` and `ios:` and the variants, and click to copy the name. Every change is in the [changelog](CHANGELOG.md) (entries before 26.11.2 in German).
 
 <a id="get-started"></a><a id="install"></a><a id="set-up"></a>
 ## Get started

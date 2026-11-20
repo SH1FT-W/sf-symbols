@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Docs: the README no longer calls the whole changelog German (entries since 26.11.2 are English); `docs/ha-annahmen.md` notes the tests pass against HA 2026.11.2.
+
 ## 26.11.4 – 10.11.2026
 
 - Fix: multicolor symbols whose layers are all coloured (640 symbols, e.g. `cloud.fill`, `cloud.rain.fill`, `cloud.sun.fill`, `cloud.moon.fill`) could show the wrong symbol when several of them were on screen, such as in a weather forecast. They all shared one internal key, so the symbol loaded last replaced the others. Every layered drawing now carries its own fingerprint (#2, thanks @yyx0725).
